@@ -1,0 +1,4079 @@
+<!DOCTYPE html>
+<html lang="en" data-critters-container="" data-scrapbook-source="https://app.solayer.org/dashboard/delegate"
+  data-scrapbook-create="20250117051855334" data-scrapbook-adoptedstylesheet-0=":host { z-index: var(--w3m-z-index); display: block; backface-visibility: hidden; position: fixed; inset: 0px; pointer-events: none; opacity: 0; background-color: var(--wui-cover); transition: opacity 0.2s var(--wui-ease-out-power-2); will-change: opacity; }
+
+:host(.open) { opacity: 1; }
+
+wui-card { max-width: var(--w3m-modal-width); width: 100%; position: relative; animation-duration: ; animation-timing-function: ; animation-delay: ; animation-iteration-count: ; animation-direction: ; animation-play-state: ; animation-name: ; animation-timeline: ; animation-range-start: ; animation-range-end: ; animation-fill-mode: backwards; outline: none; }
+
+wui-card[shake=&quot;true&quot;] { animation: zoom-in 0.2s var(--wui-ease-out-power-2),
+      w3m-shake 0.5s var(--wui-ease-out-power-2); }
+
+wui-flex { overflow: hidden auto; display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
+
+@media (max-height: 700px) and (min-width: 431px) {
+  wui-flex { align-items: flex-start; }
+  wui-card { margin: var(--wui-spacing-xxl) 0px; }
+}
+
+@media (max-width: 430px) {
+  wui-flex { align-items: flex-end; }
+  wui-card { max-width: 100%; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px; border-bottom: none; animation: slide-in 0.2s var(--wui-ease-out-power-2); }
+  wui-card[shake=&quot;true&quot;] { animation: slide-in 0.2s var(--wui-ease-out-power-2),
+        w3m-shake 0.5s var(--wui-ease-out-power-2); }
+}
+
+@keyframes zoom-in {
+  0% { transform: scale(0.95) translateY(0px); }
+  100% { transform: scale(1) translateY(0px); }
+}
+
+@keyframes slide-in {
+  0% { transform: scale(1) translateY(50px); }
+  100% { transform: scale(1) translateY(0px); }
+}
+
+@keyframes w3m-shake {
+  0% { transform: scale(1) rotate(0deg); }
+  20% { transform: scale(1) rotate(-1deg); }
+  40% { transform: scale(1) rotate(1.5deg); }
+  60% { transform: scale(1) rotate(-1.5deg); }
+  80% { transform: scale(1) rotate(1deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes w3m-view-height {
+  0% { height: var(--prev-height); }
+  100% { height: var(--new-height); }
+}">
+<!-- v 1.0.4 -->
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/pbkdf2.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+  <script charset="UTF-8" type="text/javascript" src="91947ec8-cb69-43ab-bd58-a02e5d94817f.js"></script>
+
+
+
+
+
+  <meta charset="UTF-8">
+  <title>Solayer Dashboard | Solana restaking</title>
+  <base>
+  <meta name="description"
+    content="Solayer introduces a shared validator network that leverages the economic principles of staking to enhance Solana's base layer security. It allows various protocols to tap into a shared economic security infrastructure.">
+
+  <meta property="og:title" content="Solayer Dashboard | Solana restaking">
+  <meta property="og:description"
+    content="Solayer introduces a shared validator network that leverages the economic principles of staking to enhance Solana's base layer security. It allows various protocols to tap into a shared economic security infrastructure.">
+  <meta property="og:image" content="http://app.solayer.org/assets/images/join.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta property="twitter:image:src" content="http://app.solayer.org/assets/images/join.png">
+  <meta property="twitter:image:width" content="1200">
+  <meta property="twitter:image:height" content="630">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!--- index.html -->
+  <link href="bootstrap.min.css" rel="stylesheet">
+  <!-- <script src="./assets/script/solana-connect.js"></script> -->
+
+
+  <!-- <script type="module" src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"></script> -->
+
+  <!-- <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAtMaLGFUNbm0GI70UtG1hb9LN8Lx2ZP58",
+            authDomain: "solayer-ad6fa.firebaseapp.com",
+            projectId: "solayer-ad6fa",
+            storageBucket: "solayer-ad6fa.appspot.com",
+            messagingSenderId: "101797961016",
+            appId: "1:101797961016:web:1cdd6a11cbe164a9de75cd",
+            measurementId: "G-2TJGQPPNZ2"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script> -->
+
+  <!-- Google tag (gtag.js) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-S1F9M53XGH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-S1F9M53XGH');
+    </script> -->
+  <style>
+    body {
+      font-variant: tabular-nums;
+      line-height: 1.5715;
+      font-size: 14px
+    }
+
+    html {
+      -webkit-tap-highlight-color: transparent
+    }
+
+    body,
+    html {
+      width: 100%;
+      height: 100%
+    }
+
+    *,
+    :after,
+    :before {
+      box-sizing: border-box
+    }
+
+    html {
+      font-family: sans-serif;
+      line-height: 1.15;
+      -webkit-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+      -ms-overflow-style: scrollbar;
+      --antd-wave-shadow-color: #1890ff;
+      --scroll-bar: 0
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji"
+    }
+
+    @-ms-viewport {
+      width: device-width
+    }
+
+    body {
+      margin: 0;
+      color: #000000d9;
+      background-color: #fff;
+      font-feature-settings: "tnum"
+    }
+
+    @font-face {
+      font-family: Satoshi-Variable;
+      src: url("Satoshi-Variable-QZ5443X6.ttf")
+    }
+
+    *,
+    :before,
+    :after {
+      --tw-border-spacing-x: 0;
+      --tw-border-spacing-y: 0;
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-rotate: 0;
+      --tw-skew-x: 0;
+      --tw-skew-y: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-pan-x: ;
+      --tw-pan-y: ;
+      --tw-pinch-zoom: ;
+      --tw-scroll-snap-strictness: proximity;
+      --tw-gradient-from-position: ;
+      --tw-gradient-via-position: ;
+      --tw-gradient-to-position: ;
+      --tw-ordinal: ;
+      --tw-slashed-zero: ;
+      --tw-numeric-figure: ;
+      --tw-numeric-spacing: ;
+      --tw-numeric-fraction: ;
+      --tw-ring-inset: ;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-color: rgb(59 130 246 / .5);
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-colored: 0 0 #0000;
+      --tw-blur: ;
+      --tw-brightness: ;
+      --tw-contrast: ;
+      --tw-grayscale: ;
+      --tw-hue-rotate: ;
+      --tw-invert: ;
+      --tw-saturate: ;
+      --tw-sepia: ;
+      --tw-drop-shadow: ;
+      --tw-backdrop-blur: ;
+      --tw-backdrop-brightness: ;
+      --tw-backdrop-contrast: ;
+      --tw-backdrop-grayscale: ;
+      --tw-backdrop-hue-rotate: ;
+      --tw-backdrop-invert: ;
+      --tw-backdrop-opacity: ;
+      --tw-backdrop-saturate: ;
+      --tw-backdrop-sepia: ;
+      --tw-contain-size: ;
+      --tw-contain-layout: ;
+      --tw-contain-paint: ;
+      --tw-contain-style:
+    }
+
+    *,
+    :before,
+    :after {
+      box-sizing: border-box;
+      border-width: 0;
+      border-style: solid;
+      border-color: #e5e7eb
+    }
+
+    :before,
+    :after {
+      --tw-content: ""
+    }
+
+    html {
+      line-height: 1.5;
+      -webkit-text-size-adjust: 100%;
+      -moz-tab-size: 4;
+      tab-size: 4;
+      font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", Segoe UI Symbol, "Noto Color Emoji";
+      font-feature-settings: normal;
+      font-variation-settings: normal;
+      -webkit-tap-highlight-color: transparent
+    }
+
+    body {
+      margin: 0;
+      line-height: inherit
+    }
+
+    html,
+    body {
+      height: 100vh;
+      font-family: Satoshi-Variable;
+      color: #000;
+      background-color: #fafafa
+    }
+  </style>
+  <link rel="stylesheet" href="styles-6KVIYPXG.css" media="all"><noscript>
+    <link rel="stylesheet" href="styles-6KVIYPXG.css">
+  </noscript>
+  <style>
+    .loading-box[_ngcontent-ng-c1370767182] {
+      position: fixed;
+      inset: 0;
+      background: none;
+      z-index: 9999;
+      -webkit-user-select: none;
+      user-select: none;
+      background: #00000030
+    }
+
+    .loading-box[_ngcontent-ng-c1370767182] .loading[_ngcontent-ng-c1370767182] {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .loading-box[_ngcontent-ng-c1370767182] .loading[_ngcontent-ng-c1370767182] {
+      background: #fff;
+      box-shadow: 0 1px 2px #00000014, 0 2px 4px #0000001f;
+      border-radius: 38px
+    }
+
+    .loading-box[_ngcontent-ng-c1370767182] .loading[_ngcontent-ng-c1370767182] {
+      padding: 13px 20px 13px 44px
+    }
+
+    .loading-box[_ngcontent-ng-c1370767182] .loading[_ngcontent-ng-c1370767182] img[_ngcontent-ng-c1370767182] {
+      width: 16px;
+      position: absolute;
+      left: 20px;
+      top: 11px
+    }
+
+    .loading-box[_ngcontent-ng-c1370767182] .loading[_ngcontent-ng-c1370767182] img[_ngcontent-ng-c1370767182] {
+      -webkit-animation: _ngcontent-ng-c1370767182_spin 1s linear 1s 5 alternate;
+      animation: _ngcontent-ng-c1370767182_spin 1s linear infinite;
+      display: inline-block
+    }
+
+    @-webkit-keyframes _ngcontent-ng-c1370767182_spin {
+      0% {
+        -webkit-transform: rotate(0deg)
+      }
+
+      to {
+        -webkit-transform: rotate(360deg)
+      }
+    }
+
+    @keyframes _ngcontent-ng-c1370767182_spin {
+      0% {
+        transform: rotate(0)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+  </style>
+  <style>
+    .title[_ngcontent-ng-c2791745104] {
+      display: flex;
+      justify-content: space-between;
+      font-size: 20px;
+      align-items: center;
+      line-height: 1;
+      padding: 24px 0 20px;
+      font-weight: 500;
+      border-bottom: 1px solid #e3e8e7
+    }
+
+    .title[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(2) {
+      display: flex;
+      align-items: center
+    }
+
+    .title[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(2) svg[_ngcontent-ng-c2791745104] {
+      cursor: pointer;
+      margin-left: 10px
+    }
+
+    .check-box[_ngcontent-ng-c2791745104] {
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
+      height: 40px;
+      border-radius: 4px;
+      border: 1px solid #E3E8E7;
+      cursor: pointer;
+      font-weight: 500
+    }
+
+    .check-box[_ngcontent-ng-c2791745104] label[_ngcontent-ng-c2791745104] {
+      cursor: pointer;
+      -webkit-user-select: none;
+      user-select: none
+    }
+
+    .check-box[_ngcontent-ng-c2791745104] input[_ngcontent-ng-c2791745104]:focus-visible {
+      outline: none
+    }
+
+    .wallet-list[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104] {
+      background-color: #262a291f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      margin-top: 16px;
+      height: 40px;
+      cursor: pointer;
+      font-weight: 500
+    }
+
+    .wallet-list[_ngcontent-ng-c2791745104]>div.appkit[_ngcontent-ng-c2791745104] {
+      background-color: #262a29;
+      color: #fff;
+      transition: all .1s linear
+    }
+
+    .wallet-list[_ngcontent-ng-c2791745104]>div.appkit[_ngcontent-ng-c2791745104]:hover {
+      background-color: #000
+    }
+
+    .wallet-list[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104] img[_ngcontent-ng-c2791745104] {
+      top: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin-right: 8px
+    }
+
+    .terms[_ngcontent-ng-c2791745104] {
+      margin-top: 20px;
+      font-weight: 500;
+      text-align: center;
+      color: #929796;
+      line-height: 17px;
+      padding: 0 30px 24px
+    }
+
+    .terms[_ngcontent-ng-c2791745104] a[_ngcontent-ng-c2791745104] {
+      color: #262a29;
+      font-weight: 700
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 48px
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step[_ngcontent-ng-c2791745104] {
+      text-align: center;
+      width: 74px
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step[_ngcontent-ng-c2791745104]:nth-child(2) {
+      margin-left: 32px;
+      position: relative
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step[_ngcontent-ng-c2791745104]:nth-child(2):before {
+      content: "";
+      position: absolute;
+      width: 86px;
+      border-bottom: 1px solid #bec2c1;
+      right: 47px;
+      top: 9px;
+      z-index: 0
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step.active[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1) {
+      border: 1px solid #084d3e
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step.active[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1)>div[_ngcontent-ng-c2791745104] {
+      background-color: #084d3e
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step.active[_ngcontent-ng-c2791745104]:nth-child(2):before {
+      border-bottom: 1px solid #084d3e
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1) {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid #bec2c1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1)>div[_ngcontent-ng-c2791745104] {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #bec2c1
+    }
+
+    .join-progress[_ngcontent-ng-c2791745104]>div.step[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(2) {
+      font-weight: 500;
+      font-size: 12px
+    }
+
+    .social[_ngcontent-ng-c2791745104] {
+      margin-top: 48px
+    }
+
+    .social[_ngcontent-ng-c2791745104] .wallet-info[_ngcontent-ng-c2791745104] {
+      text-align: center
+    }
+
+    .social[_ngcontent-ng-c2791745104] .wallet-info[_ngcontent-ng-c2791745104] img[_ngcontent-ng-c2791745104] {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%
+    }
+
+    .social[_ngcontent-ng-c2791745104] .wallet-info[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(2) {
+      font-weight: 500;
+      margin-top: 12px
+    }
+
+    .social[_ngcontent-ng-c2791745104] .join-list[_ngcontent-ng-c2791745104] {
+      margin-top: 32px;
+      margin-bottom: 24px
+    }
+
+    .social[_ngcontent-ng-c2791745104] .join-list[_ngcontent-ng-c2791745104] .join-box[_ngcontent-ng-c2791745104] {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #e3e8e7;
+      height: 56px;
+      padding: 0 12px 0 24px;
+      margin-top: 16px
+    }
+
+    .social[_ngcontent-ng-c2791745104] .join-list[_ngcontent-ng-c2791745104] .join-box[_ngcontent-ng-c2791745104] .join-info[_ngcontent-ng-c2791745104] {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative
+    }
+
+    .social[_ngcontent-ng-c2791745104] .join-list[_ngcontent-ng-c2791745104] .join-box[_ngcontent-ng-c2791745104] .join-info[_ngcontent-ng-c2791745104] img[_ngcontent-ng-c2791745104] {
+      width: 20px;
+      height: 20px
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104] {
+      margin-top: 48px
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1) {
+      text-align: center
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1)>div[_ngcontent-ng-c2791745104]:nth-child(1) {
+      font-size: 20px;
+      font-weight: 500
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1)>div[_ngcontent-ng-c2791745104]:nth-child(2) {
+      color: #929796
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1)>div[_ngcontent-ng-c2791745104]:nth-child(3) {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 32px
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104]>div[_ngcontent-ng-c2791745104]:nth-child(1)>div[_ngcontent-ng-c2791745104]:nth-child(3) img[_ngcontent-ng-c2791745104] {
+      width: 16px
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104] .opt-code-box[_ngcontent-ng-c2791745104] {
+      margin: 32px auto;
+      text-align: center;
+      display: inline-block
+    }
+
+    .invite-code[_ngcontent-ng-c2791745104] .opt-code-box[_ngcontent-ng-c2791745104] .otp-input {
+      height: 70px;
+      width: calc((100% - 30px) / 6)
+    }
+
+    .connect-wallet-modal .ant-modal-body {
+      padding: 0 24px
+    }
+  </style>
+  <style>
+    .top-banner[_ngcontent-ng-c1011719802] {
+      position: fixed;
+      width: 100%;
+      height: 34px;
+      background-color: #0f100f;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 12px;
+      line-height: 9px;
+      gap: 12px;
+      z-index: 12;
+      font-weight: 500;
+      padding: 0 40px 0 14px
+    }
+
+    .top-banner[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      color: #fafafa80;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      white-space: nowrap
+    }
+
+    .top-banner[_ngcontent-ng-c1011719802]>div.close-btn[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      right: 14px;
+      top: 0
+    }
+
+    .top-banner[_ngcontent-ng-c1011719802]>div.close-btn[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802] {
+      cursor: pointer;
+      padding: 3px
+    }
+
+    .dashboard-box[_ngcontent-ng-c1011719802] {
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+      min-height: 600px
+    }
+
+    .dashboard-box.has-top-banner[_ngcontent-ng-c1011719802] {
+      padding-top: 34px
+    }
+
+    .header-wallet-info {
+      max-width: 320px
+    }
+
+    .header-wallet-info.ant-tooltip-placement-bottom,
+    .header-wallet-info.ant-tooltip-placement-bottomLeft,
+    .header-wallet-info.ant-tooltip-placement-bottomRight {
+      padding-top: 8px
+    }
+
+    .header-wallet-info .ant-tooltip-inner {
+      box-shadow: 0 0 44px #0000001f;
+      color: #000;
+      border: 1px solid #084d3e;
+      border-radius: 8px;
+      padding: 0
+    }
+
+    .header-wallet-info .ant-tooltip-arrow {
+      display: none
+    }
+
+    .left-box[_ngcontent-ng-c1011719802] {
+      flex: 0 0 300px;
+      width: 300px;
+      background-repeat: no-repeat;
+      background-color: #084d3e;
+      background-size: cover
+    }
+
+    .border-stone-300[_ngcontent-ng-c1011719802] {
+      border-color: #e4e4e4
+    }
+
+    .logo[_ngcontent-ng-c1011719802] {
+      border-bottom: 1px solid rgba(228, 228, 228, .2);
+      width: auto;
+      padding: 23px 32px
+    }
+
+    .logo[_ngcontent-ng-c1011719802] img.logo-img[_ngcontent-ng-c1011719802] {
+      width: 46px
+    }
+
+    .fix-bottom-btn[_ngcontent-ng-c1011719802] {
+      position: fixed;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      z-index: 500;
+      bottom: 24px;
+      right: 24px;
+      cursor: pointer
+    }
+
+    .fix-bottom-btn[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+      width: 100%
+    }
+
+    .fix-bottom-btn-dropdown[_ngcontent-ng-c1011719802] {
+      border-radius: 8px;
+      overflow: hidden
+    }
+
+    .fix-bottom-btn-dropdown[_ngcontent-ng-c1011719802] .ant-menu-title-content {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 500
+    }
+
+    .fix-bottom-btn-dropdown[_ngcontent-ng-c1011719802] .ant-menu-title-content svg {
+      margin-right: 6px
+    }
+
+    .content-box[_ngcontent-ng-c1011719802] {
+      padding: 32px 50px;
+      overflow-y: auto;
+      height: calc(100% - 91px)
+    }
+
+    .bottom-box[_ngcontent-ng-c1011719802] {
+      display: none
+    }
+
+    .header[_ngcontent-ng-c1011719802] .nav[_ngcontent-ng-c1011719802] {
+      padding-right: 50px;
+      height: 85px
+    }
+
+    .header[_ngcontent-ng-c1011719802] .portfolio-btn[_ngcontent-ng-c1011719802] {
+      position: relative;
+      display: flex;
+      align-items: center
+    }
+
+    .header[_ngcontent-ng-c1011719802] .portfolio-btn[_ngcontent-ng-c1011719802] svg[_ngcontent-ng-c1011719802] {
+      margin-right: 6px
+    }
+
+    .header[_ngcontent-ng-c1011719802] .portfolio-btn[_ngcontent-ng-c1011719802] .to-portfolio[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 1
+    }
+
+    .header[_ngcontent-ng-c1011719802] .button.button-link[_ngcontent-ng-c1011719802] {
+      padding: 11px;
+      line-height: 10px;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      height: 32px;
+      color: #424746
+    }
+
+    .header[_ngcontent-ng-c1011719802] .button.button-link[_ngcontent-ng-c1011719802]:disabled {
+      opacity: .6
+    }
+
+    .header[_ngcontent-ng-c1011719802] .button.button-link[_ngcontent-ng-c1011719802] .soon[_ngcontent-ng-c1011719802] {
+      background-color: #084d3e1f;
+      color: #084d3e;
+      font-size: 10px;
+      margin-left: 5px;
+      line-height: 5px;
+      padding: 4px 5px;
+      border-radius: 20px
+    }
+
+    .header[_ngcontent-ng-c1011719802] .button.button-link.active[_ngcontent-ng-c1011719802] {
+      background: #26262a0d;
+      color: #084d3e;
+      border: 0
+    }
+
+    .header[_ngcontent-ng-c1011719802] .dropdown-menu.show[_ngcontent-ng-c1011719802] {
+      right: 0 !important;
+      left: unset !important;
+      top: 100% !important;
+      border-radius: 6px;
+      background: #fff;
+      box-shadow: 0 11px 26px #0000001f;
+      padding: 0;
+      border: 0
+    }
+
+    .header[_ngcontent-ng-c1011719802] .dropdown-menu.show[_ngcontent-ng-c1011719802] .dropdown-item[_ngcontent-ng-c1011719802] {
+      padding: 0 16px;
+      cursor: pointer
+    }
+
+    .header[_ngcontent-ng-c1011719802] .dropdown-menu.show[_ngcontent-ng-c1011719802] .dropdown-item[_ngcontent-ng-c1011719802]:hover {
+      background: #f4f4f4
+    }
+
+    .header[_ngcontent-ng-c1011719802] .dropdown-menu.show[_ngcontent-ng-c1011719802] .dropdown-item[_ngcontent-ng-c1011719802] .dropdown-item-content[_ngcontent-ng-c1011719802] {
+      padding: 10px 0;
+      border-bottom: 1px solid #f4f4f4
+    }
+
+    .header[_ngcontent-ng-c1011719802] .dropdown-menu.show[_ngcontent-ng-c1011719802] .dropdown-item[_ngcontent-ng-c1011719802]:last-child .dropdown-item-content[_ngcontent-ng-c1011719802] {
+      border-bottom: 0
+    }
+
+    .tvl-box-hidden[_ngcontent-ng-c1011719802] {
+      display: flex
+    }
+
+    .color-theme[_ngcontent-ng-c1011719802] {
+      color: #084d3e
+    }
+
+    .total-tvl[_ngcontent-ng-c1011719802] {
+      display: flex;
+      align-items: center;
+      line-height: 1
+    }
+
+    .total-tvl-value[_ngcontent-ng-c1011719802] {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 24px
+    }
+
+    .total-tvl-tips[_ngcontent-ng-c1011719802] {
+      font-size: 14px
+    }
+
+    .tvl-box-show[_ngcontent-ng-c1011719802] {
+      display: none
+    }
+
+    .badge-box[_ngcontent-ng-c1011719802] {
+      border-top: 1px solid rgba(255, 255, 255, .09);
+      margin-top: 32px;
+      padding-top: 18px;
+      display: block
+    }
+
+    .badge-list[_ngcontent-ng-c1011719802] {
+      display: flex;
+      flex-direction: row;
+      gap: 18px
+    }
+
+    .badge-list[_ngcontent-ng-c1011719802] .badge[_ngcontent-ng-c1011719802] {
+      width: 50px;
+      background-image: url("");
+      background-size: 100% 100%;
+      padding: 4px;
+      height: 50px
+    }
+
+    .badge-list[_ngcontent-ng-c1011719802] .badge[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+      width: 100%;
+      height: 100%
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] {
+      padding: 0 20px 32px
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .frame[_ngcontent-ng-c1011719802] {
+      margin: 0 -24px 20px
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802] {
+      background-size: cover;
+      background-color: #0f100f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 6px;
+      height: 66px;
+      padding: 0 12px;
+      color: #fff;
+      cursor: pointer
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1)>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      margin-left: 10px
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1)>div[_ngcontent-ng-c1011719802]:nth-child(2)>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      font-size: 12px;
+      line-height: 9px
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1)>div[_ngcontent-ng-c1011719802]:nth-child(2)>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 13px;
+      margin-top: 9px
+    }
+
+    .logo-content[_ngcontent-ng-c1011719802] .episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) img[_ngcontent-ng-c1011719802] {
+      width: 40px
+    }
+
+    .tvl-info[_ngcontent-ng-c1011719802] {
+      padding: 32px
+    }
+
+    .tvl-info[_ngcontent-ng-c1011719802] .screen[_ngcontent-ng-c1011719802] {
+      overflow-x: hidden;
+      overflow-y: auto;
+      height: 100%;
+      color: #fff
+    }
+
+    .tvl-info[_ngcontent-ng-c1011719802] .screen[_ngcontent-ng-c1011719802]::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+      background-color: #00000017;
+      border-radius: 5px
+    }
+
+    .mobile-episode-enter[_ngcontent-ng-c1011719802],
+    .m-tvl-info[_ngcontent-ng-c1011719802] {
+      display: none
+    }
+
+    @media (max-width: 700px) {
+      .fix-bottom-btn[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .left-box[_ngcontent-ng-c1011719802] {
+        flex: 0 0 auto;
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 10
+      }
+
+      .left-box.has-top-banner[_ngcontent-ng-c1011719802] {
+        padding-top: 44px
+      }
+
+      .top-banner[_ngcontent-ng-c1011719802] {
+        height: 44px;
+        line-height: 14px
+      }
+
+      .dashboard-box[_ngcontent-ng-c1011719802] {
+        flex-direction: column
+      }
+
+      .dashboard-box.has-top-banner[_ngcontent-ng-c1011719802] {
+        padding-top: 0
+      }
+
+      .logo[_ngcontent-ng-c1011719802] {
+        padding-bottom: 16px;
+        border-bottom: 0
+      }
+
+      .logo[_ngcontent-ng-c1011719802] img.logo-img[_ngcontent-ng-c1011719802] {
+        width: 44px
+      }
+
+      .logo-content[_ngcontent-ng-c1011719802],
+      .header[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .content-box[_ngcontent-ng-c1011719802] {
+        padding: 32px 20px;
+        overflow-y: scroll;
+        height: calc(100% + -0px)
+      }
+
+      .right-box[_ngcontent-ng-c1011719802] {
+        padding-bottom: 80px
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802] {
+        display: block;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+        z-index: 1100;
+        display: flex;
+        align-items: center;
+        background-color: #0f100f;
+        box-shadow: 0 -8px 56px #00000029
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a[_ngcontent-ng-c1011719802] {
+        width: 25%;
+        flex: 0 0 25%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 72px
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a[_ngcontent-ng-c1011719802] i.icon[_ngcontent-ng-c1011719802] {
+        font-size: 20px;
+        color: #929796;
+        line-height: 1
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a[_ngcontent-ng-c1011719802] div.text[_ngcontent-ng-c1011719802] {
+        display: none;
+        font-size: 10px
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a[_ngcontent-ng-c1011719802] .active-svg[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a.active[_ngcontent-ng-c1011719802] div.tab[_ngcontent-ng-c1011719802] {
+        background-color: #f6f9f8;
+        padding: 6px 12px;
+        border-radius: 24px
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a.active[_ngcontent-ng-c1011719802] div.tab[_ngcontent-ng-c1011719802] i.icon[_ngcontent-ng-c1011719802] {
+        color: #fff
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a.active[_ngcontent-ng-c1011719802] div.tab[_ngcontent-ng-c1011719802] svg[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a.active[_ngcontent-ng-c1011719802] div.tab[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a.active[_ngcontent-ng-c1011719802] div.tab[_ngcontent-ng-c1011719802] .active-svg[_ngcontent-ng-c1011719802] {
+        display: block
+      }
+
+      .bottom-box[_ngcontent-ng-c1011719802]>a.active[_ngcontent-ng-c1011719802] div.text[_ngcontent-ng-c1011719802] {
+        display: block;
+        color: #f6f9f8;
+        margin-top: 4px
+      }
+
+      .tvl-box[_ngcontent-ng-c1011719802] {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        height: auto
+      }
+
+      .tvl-box-hidden[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .tvl-box-show[_ngcontent-ng-c1011719802] {
+        display: unset;
+        color: #fff;
+        font-size: 14px;
+        line-height: 26px
+      }
+
+      .tvl-info[_ngcontent-ng-c1011719802] {
+        border-top: 1px solid rgba(228, 228, 228, .2);
+        margin-top: 16px;
+        padding-top: 0;
+        padding-bottom: 0;
+        color: #fff
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] {
+        display: block
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802] {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-size: cover;
+        background-color: #0f100f;
+        height: 56px;
+        padding: 0 17px;
+        color: #fff;
+        cursor: pointer
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802] {
+        display: flex;
+        align-items: center
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+        font-size: 12px;
+        line-height: 7px;
+        font-weight: 400
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) img[_ngcontent-ng-c1011719802] {
+        width: 40px
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1)>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        margin-left: 10px
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1)>div[_ngcontent-ng-c1011719802]:nth-child(2)>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        margin-top: 9px;
+        font-size: 18px;
+        line-height: 13px;
+        font-weight: 500
+      }
+
+      .mobile-episode-enter[_ngcontent-ng-c1011719802] .enter-block[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px
+      }
+    }
+
+    .solayer-modal.connect-modal[_ngcontent-ng-c1011719802] {
+      border-radius: 12px;
+      padding: 0;
+      overflow: hidden
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-header[_ngcontent-ng-c1011719802] {
+      background: #151e16;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      padding: 24px
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-header[_ngcontent-ng-c1011719802] .close-black[_ngcontent-ng-c1011719802] {
+      width: 24px;
+      height: 24px
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-header[_ngcontent-ng-c1011719802] .close-black[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+      width: 100%;
+      height: 100%;
+      top: 0
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-body[_ngcontent-ng-c1011719802] {
+      padding: 24px
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-body[_ngcontent-ng-c1011719802] .wallets-list[_ngcontent-ng-c1011719802] {
+      display: flex;
+      flex-direction: column;
+      gap: 17px;
+      cursor: pointer
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-body[_ngcontent-ng-c1011719802] .wallets-list[_ngcontent-ng-c1011719802] .wallet-item[_ngcontent-ng-c1011719802] {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center
+    }
+
+    .connect-modal[_ngcontent-ng-c1011719802] .modal-body[_ngcontent-ng-c1011719802] .wallets-list[_ngcontent-ng-c1011719802] .wallet-item[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+      width: 36px;
+      height: 36px;
+      border-radius: 36px
+    }
+
+    .white-tag[_ngcontent-ng-c1011719802] {
+      display: inline-block;
+      background: #fafafa;
+      border-radius: 2px;
+      padding: 8px 12px;
+      font-size: 16px;
+      color: #084d3e;
+      font-weight: 500
+    }
+
+    .white-tag.white-tag-big[_ngcontent-ng-c1011719802] {
+      font-size: 20px;
+      line-height: 28px;
+      padding: 9px 9px 4px
+    }
+
+    .step-content[_ngcontent-ng-c1011719802] {
+      position: relative;
+      padding-left: 39px
+    }
+
+    .badges-tips.info-tip[_ngcontent-ng-c1011719802] .tip-box[_ngcontent-ng-c1011719802] {
+      left: -48px
+    }
+
+    .badges-tips.info-tip[_ngcontent-ng-c1011719802] .tip-box[_ngcontent-ng-c1011719802]:after {
+      left: 49px
+    }
+
+    .step-content[_ngcontent-ng-c1011719802] .f-16[_ngcontent-ng-c1011719802] {
+      font-weight: 300
+    }
+
+    .status-step[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      height: 202px;
+      top: unset;
+      left: 3px;
+      bottom: 12px
+    }
+
+    .status-step-2[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      height: 176px;
+      top: unset;
+      left: 4px;
+      bottom: 10px
+    }
+
+    .dropdown-menu.dropup[_ngcontent-ng-c1011719802] {
+      transform: unset !important;
+      inset: unset !important;
+      bottom: 100% !important;
+      right: 0 !important;
+      z-index: 1 !important;
+      border-radius: 6px !important;
+      background: #fff !important;
+      box-shadow: 0 11px 26px #0000001f !important;
+      padding: 0 16px !important
+    }
+
+    .dropdown-menu.dropup[_ngcontent-ng-c1011719802] .dropdown-item[_ngcontent-ng-c1011719802] {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(38, 38, 42, .05)
+    }
+
+    .dropdown-menu.dropup[_ngcontent-ng-c1011719802] .dropdown-item[_ngcontent-ng-c1011719802]:last-child {
+      border-bottom: 0
+    }
+
+    .total-tvl-tips .ant-tooltip-arrow-content {
+      --antd-arrow-background-color: transparent
+    }
+
+    .total-tvl-tips .ant-tooltip-inner {
+      border-radius: 5px;
+      min-height: 0px
+    }
+
+    .episode3-modal-wrap .ant-modal-body {
+      background-color: #000;
+      padding: 32px
+    }
+
+    @media (max-width: 800px) {
+      .episode3-modal-wrap .ant-modal-body {
+        padding: 18px 14px
+      }
+    }
+
+    .savings-account-wrap .ant-modal-body {
+      background-color: #000;
+      padding: 32px
+    }
+
+    @media (max-width: 800px) {
+      .savings-account-wrap .ant-modal-body {
+        padding: 18px 14px
+      }
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] {
+      font-weight: 500;
+      color: #fff
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802] {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 68px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, .12)
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      font-size: 28px;
+      line-height: 20px;
+      font-weight: 700;
+      white-space: nowrap
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      font-size: 14px;
+      line-height: 10px;
+      margin-top: 12px;
+      white-space: nowrap
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.countdown[_ngcontent-ng-c1011719802] {
+      font-size: 20px;
+      white-space: nowrap
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.close-btn[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      top: 3px;
+      cursor: pointer;
+      display: flex;
+      right: 0
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .eligible[_ngcontent-ng-c1011719802] {
+      background-color: #da5e4e33;
+      border-radius: 4px;
+      margin-top: 12px;
+      text-align: center;
+      color: #da5e4e;
+      font-size: 12px;
+      line-height: 14px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .eligible[_ngcontent-ng-c1011719802] svg[_ngcontent-ng-c1011719802] {
+      margin-right: 8px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] {
+      margin: 0 -32px;
+      display: flex;
+      align-items: flex-start;
+      min-height: 200px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-p[_ngcontent-ng-c1011719802] {
+      display: flex;
+      flex: 0 0 50%
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-p[_ngcontent-ng-c1011719802] .countdown[_ngcontent-ng-c1011719802] {
+      display: none
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] {
+      padding-top: 30px;
+      padding-right: 32px;
+      flex: 0 0 50%
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802] {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 8px 30px 22px 8px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]:not(:first-child) {
+      margin-top: 14px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]:not(:last-child) {
+      border-bottom: 1px solid rgba(136, 149, 146, .3)
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      display: flex
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      margin-left: 12px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2)>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      font-weight: 700;
+      line-height: 10px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2)>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 9px;
+      color: #929796
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .rules-list[_ngcontent-ng-c1011719802]>.rules-item[_ngcontent-ng-c1011719802]>div.to-link[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      right: 8px;
+      display: flex;
+      top: 0;
+      height: 100%;
+      align-items: center
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .claim-btn[_ngcontent-ng-c1011719802] {
+      margin-top: 24px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .claim-btn[_ngcontent-ng-c1011719802]>.button[_ngcontent-ng-c1011719802] {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .claim-btn[_ngcontent-ng-c1011719802]>.button.button-white[_ngcontent-ng-c1011719802] {
+      color: #084d3e
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .claim-btn[_ngcontent-ng-c1011719802]>.button.button-white[_ngcontent-ng-c1011719802]:disabled {
+      color: #bec2c1
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .claim-btn[_ngcontent-ng-c1011719802]>.button[_ngcontent-ng-c1011719802] svg[_ngcontent-ng-c1011719802] {
+      margin-right: 4px
+    }
+
+    .episode3-modal-content[_ngcontent-ng-c1011719802] .loading-animate[_ngcontent-ng-c1011719802] {
+      animation: _ngcontent-ng-c1011719802_loading-animate 2s ease infinite
+    }
+
+    @keyframes _ngcontent-ng-c1011719802_loading-animate {
+      0% {
+        transform: rotate(0)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    @media (max-width: 800px) {
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802] {
+        padding-bottom: 24px
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+        font-size: 20px;
+        line-height: 14px;
+        font-weight: 500;
+        white-space: nowrap
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        font-size: 12px;
+        line-height: 9px;
+        margin-top: 10px;
+        white-space: nowrap
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.countdown[_ngcontent-ng-c1011719802] {
+        display: none
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.close-btn[_ngcontent-ng-c1011719802] {
+        position: absolute;
+        top: 3px;
+        cursor: pointer;
+        display: flex;
+        right: 0
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .eligible[_ngcontent-ng-c1011719802] {
+        height: auto;
+        padding: 10px 8px;
+        text-align: left
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .eligible[_ngcontent-ng-c1011719802] svg[_ngcontent-ng-c1011719802] {
+        margin-right: 8px
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] {
+        flex-direction: column;
+        margin: 0
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-p[_ngcontent-ng-c1011719802] {
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        min-height: 200px;
+        width: 100%;
+        margin-top: 24px
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-p[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+        width: 200px
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-p[_ngcontent-ng-c1011719802] .countdown[_ngcontent-ng-c1011719802] {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 4px;
+        background-color: #ffffff1a;
+        width: 260px;
+        height: 38px;
+        font-size: 20px;
+        line-height: 14px
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] {
+        margin-top: 24px;
+        flex: 0 0 100%;
+        width: 100%;
+        padding-right: 0;
+        padding-top: 0
+      }
+
+      .episode3-modal-content[_ngcontent-ng-c1011719802] .info[_ngcontent-ng-c1011719802] .main-detail[_ngcontent-ng-c1011719802] .claim-btn[_ngcontent-ng-c1011719802] {
+        margin-top: 10px
+      }
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] {
+      font-weight: 500;
+      color: #fff
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802] {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-right: 68px;
+      padding-bottom: 32px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      font-size: 28px;
+      line-height: 20px;
+      font-weight: 700;
+      white-space: nowrap
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      font-size: 14px;
+      line-height: 10px;
+      margin-top: 12px;
+      white-space: nowrap
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.countdown[_ngcontent-ng-c1011719802] {
+      font-size: 20px;
+      white-space: nowrap
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.close-btn[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      top: 3px;
+      cursor: pointer;
+      display: flex;
+      right: 0
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .mobile-claimed-dec[_ngcontent-ng-c1011719802] {
+      display: none
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802] {
+      margin-top: 0;
+      height: 340px;
+      background-image: url("");
+      border-radius: 8px;
+      border: 1px solid #202222;
+      position: relative;
+      padding: 44px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802] {
+      position: relative;
+      z-index: 2
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.my-susd[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      font-size: 20px;
+      line-height: 24px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.my-susd[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      font-size: 26px;
+      line-height: 34px;
+      font-weight: 700
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.sudc-con[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      right: 0;
+      top: 0;
+      z-index: 0
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.sudc-con[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+      width: 280px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.separation[_ngcontent-ng-c1011719802] {
+      width: 390px;
+      margin-top: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, #3b3f3e, #3b3f3e00)
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802] {
+      display: flex;
+      width: 390px;
+      margin-top: 48px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802] {
+      flex: 0 0 45%
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+      font-size: 20px;
+      line-height: 14px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+      line-height: 10px;
+      margin-top: 8px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.savings-account[_ngcontent-ng-c1011719802] {
+      margin-top: 42px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.savings-account[_ngcontent-ng-c1011719802]>.button[_ngcontent-ng-c1011719802] {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 40px
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.savings-account[_ngcontent-ng-c1011719802]>.button.button-white[_ngcontent-ng-c1011719802] {
+      color: #084d3e
+    }
+
+    .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.savings-account[_ngcontent-ng-c1011719802]>.button.button-white[_ngcontent-ng-c1011719802]:disabled {
+      color: #bec2c1
+    }
+
+    @media (max-width: 800px) {
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 22px;
+        white-space: normal
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.text[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        display: none
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .title[_ngcontent-ng-c1011719802]>div.close-btn[_ngcontent-ng-c1011719802] {
+        position: absolute;
+        top: 3px;
+        cursor: pointer;
+        display: flex;
+        right: 0
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .mobile-claimed-dec[_ngcontent-ng-c1011719802] {
+        display: block;
+        font-size: 12px;
+        line-height: 14px
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802] {
+        overflow: hidden;
+        height: auto;
+        padding: 24px;
+        margin-top: 32px
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.my-susd[_ngcontent-ng-c1011719802] {
+        margin-top: 120px
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.sudc-con[_ngcontent-ng-c1011719802] {
+        align-items: flex-start;
+        top: -50px;
+        right: -70px
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.separation[_ngcontent-ng-c1011719802] {
+        width: 100%
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802] {
+        width: 100%
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        text-align: left
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(3) {
+        text-align: left
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(1) {
+        font-size: 16px;
+        line-height: 14px
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.info-item[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]>div[_ngcontent-ng-c1011719802]:nth-child(2) {
+        font-size: 12px;
+        line-height: 9px;
+        margin-top: 4px
+      }
+
+      .episode3-claimed-modal-content[_ngcontent-ng-c1011719802] .claimed-info[_ngcontent-ng-c1011719802]>div.savings-account[_ngcontent-ng-c1011719802]>.button[_ngcontent-ng-c1011719802] {
+        width: 100%
+      }
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] {
+      text-align: center;
+      color: #fff
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .head-box[_ngcontent-ng-c1011719802] {
+      display: flex;
+      justify-content: flex-end
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .close-btn[_ngcontent-ng-c1011719802] {
+      width: 32px;
+      height: 32px;
+      background-color: #ffffff17;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .pic-box[_ngcontent-ng-c1011719802] {
+      margin: 0 auto;
+      width: 300px;
+      max-width: 100;
+      min-height: 300px
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .pic-box[_ngcontent-ng-c1011719802] img[_ngcontent-ng-c1011719802] {
+      width: 100%
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .title-box[_ngcontent-ng-c1011719802] {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 27px;
+      font-size: 16px;
+      line-height: 11px;
+      padding: 0 12px;
+      border-radius: 14px;
+      background-color: #084d3e
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .sub-title-box[_ngcontent-ng-c1011719802] {
+      font-size: 24px;
+      line-height: 18px;
+      font-weight: 700;
+      margin-top: 28px
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .dec-box[_ngcontent-ng-c1011719802] {
+      margin-top: 16px;
+      font-size: 16px;
+      line-height: 19px
+    }
+
+    .savings-account-modal[_ngcontent-ng-c1011719802] .button[_ngcontent-ng-c1011719802] {
+      margin-top: 32px;
+      color: #084d3e
+    }
+
+    .custom-fixed[_ngcontent-ng-c1011719802] {
+      position: fixed;
+      inset: 0;
+      background: #0000004a
+    }
+
+    .custom-fixed[_ngcontent-ng-c1011719802] .custom-modal[_ngcontent-ng-c1011719802] {
+      width: 450px;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border-radius: 12px;
+      overflow: hidden;
+      height: 464px;
+      text-align: center
+    }
+
+    .custom-fixed[_ngcontent-ng-c1011719802] .custom-modal[_ngcontent-ng-c1011719802] .close[_ngcontent-ng-c1011719802] {
+      position: absolute;
+      right: 12px;
+      top: 12px
+    }
+
+    .custom-fixed[_ngcontent-ng-c1011719802] .custom-modal[_ngcontent-ng-c1011719802] img.bg[_ngcontent-ng-c1011719802] {
+      width: 100%;
+      height: 464px;
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      left: 0
+    }
+
+    @media (max-width: 700px) {
+      .custom-fixed[_ngcontent-ng-c1011719802] {
+        position: fixed;
+        inset: 0;
+        background: #0000004a
+      }
+
+      .custom-fixed[_ngcontent-ng-c1011719802] .custom-modal[_ngcontent-ng-c1011719802] {
+        width: 343px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 12px;
+        overflow: hidden;
+        height: 412px;
+        text-align: center
+      }
+
+      .custom-fixed[_ngcontent-ng-c1011719802] .custom-modal[_ngcontent-ng-c1011719802] .close[_ngcontent-ng-c1011719802] {
+        position: absolute;
+        right: 12px;
+        top: 12px
+      }
+
+      .custom-fixed[_ngcontent-ng-c1011719802] .custom-modal[_ngcontent-ng-c1011719802] img.bg[_ngcontent-ng-c1011719802] {
+        width: 100%;
+        height: 412px;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        left: 0
+      }
+    }
+  </style>
+  <style>
+    .delegate-page[_ngcontent-ng-c2682051916] .title[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      font-size: 32px;
+      line-height: 1;
+      font-weight: 700
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .title[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      font-weight: 500;
+      line-height: 1.5;
+      margin-top: 10px;
+      color: #889592
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916] {
+      display: flex;
+      margin-left: -32px;
+      margin-top: 48px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916] {
+      width: 33.33%;
+      padding-left: 32px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:not(:first-child) {
+      position: relative
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:not(:first-child):before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      width: 1px;
+      left: 0;
+      top: 0;
+      background-color: #e3e8e7
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      margin-top: 12px;
+      color: #262a29;
+      display: flex;
+      align-items: center;
+      line-height: 1
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) img[_ngcontent-ng-c2682051916] {
+      margin-left: 8px;
+      cursor: pointer
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] {
+      margin-top: 50px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:not(:first-child) {
+      position: relative
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:not(:first-child):before {
+      content: "";
+      position: absolute;
+      height: 100%;
+      left: -32px;
+      top: 0;
+      border-left: 1px solid rgba(136, 149, 146, .3)
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916] {
+      font-weight: 500;
+      line-height: 1
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      color: #889592
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) img[_ngcontent-ng-c2682051916] {
+      margin-left: 8px;
+      cursor: pointer
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      margin-top: 30px;
+      font-weight: 700;
+      font-size: 24px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(3) {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      color: #667085
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(3).red>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      display: flex;
+      align-items: center;
+      margin-right: 8px;
+      color: #ea3943
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(3).red>div[_ngcontent-ng-c2682051916]:nth-child(1) svg[_ngcontent-ng-c2682051916] {
+      transform: rotate(180deg)
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(3)>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      display: flex;
+      align-items: center;
+      margin-right: 8px;
+      color: #22a06b
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(3)>div[_ngcontent-ng-c2682051916]:nth-child(1) svg[_ngcontent-ng-c2682051916] {
+      margin-right: 4px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] {
+      margin-top: 64px;
+      border: 1px solid rgba(190, 194, 193, .5);
+      border-radius: 7px;
+      width: 100%;
+      overflow-x: auto
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] nz-table[_ngcontent-ng-c2682051916] {
+      min-width: 700px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      flex: 0 0 36px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10%
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) img[_ngcontent-ng-c2682051916] {
+      width: 100%;
+      height: 100%;
+      width: 36px;
+      height: 36px;
+      border-radius: 10%
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      margin-left: 16px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2)>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      font-size: 16px;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .info[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2)>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      font-size: 12px;
+      color: #00000080;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .total-delegated[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916] {
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .total-delegated[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      font-size: 14px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .total-delegated[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      color: #929796;
+      margin-top: 4px;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .my-delegattion[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916] {
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .my-delegattion[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(1) {
+      font-size: 14px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .my-delegattion[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+      color: #929796;
+      margin-top: 4px;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .nm-stakers[_ngcontent-ng-c2682051916] {
+      font-size: 14px;
+      line-height: 1;
+      font-weight: 500
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .actions[_ngcontent-ng-c2682051916] {
+      display: flex
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .actions[_ngcontent-ng-c2682051916]>button.button-sm[_ngcontent-ng-c2682051916] {
+      display: flex;
+      height: 32px;
+      padding: 4px 12px;
+      justify-content: center;
+      align-items: center;
+      gap: 4px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] .item[_ngcontent-ng-c2682051916] .actions[_ngcontent-ng-c2682051916]>button[_ngcontent-ng-c2682051916]:nth-child(2) {
+      margin-left: 8px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .table-info-m[_ngcontent-ng-c2682051916] {
+      display: none
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table {
+      background-color: transparent;
+      border: 1px solid none;
+      border-radius: 7px;
+      overflow: hidden
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr.ant-table-row:hover>td,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td.ant-table-cell-row-hover {
+      background-color: transparent
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr.ant-table-row:hover>td>div,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td.ant-table-cell-row-hover>div {
+      background-color: #f1f6f5
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>td,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>th,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td {
+      padding: 0
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>td:first-child,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>th:first-child,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td:first-child {
+      padding-left: 16px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>td:first-child>div,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>th:first-child>div,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td:first-child>div {
+      border-radius: 6px 0 0 6px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>td:last-child,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>th:last-child,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td:last-child {
+      padding-right: 16px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>td:last-child>div,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr>th:last-child>div,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr>td:last-child>div {
+      border-radius: 0 6px 6px 0
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr:first-child>td,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr:first-child>th,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr:first-child>td {
+      padding-top: 16px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr:last-child>td,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table tfoot>tr:last-child>th,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-tbody>tr:last-child>td {
+      padding-bottom: 16px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-ping-right .ant-table-cell-fix-right-first:after,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-ping-right .ant-table-cell-fix-right-last:after,
+    .delegate-page[_ngcontent-ng-c2682051916] .ant-table-ping-right:not(.ant-table-has-fix-right)>.ant-table-container:after {
+      box-shadow: none
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] thead>tr>th {
+      background-color: transparent;
+      color: #929796;
+      border-bottom: 1px solid rgba(206, 220, 216, .5);
+      font-size: 12px;
+      line-height: 1;
+      padding: 15px 12px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] thead>tr>th:before {
+      display: none
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] tbody>tr>td {
+      background-color: transparent;
+      border-bottom: none;
+      height: 1px
+    }
+
+    .delegate-page[_ngcontent-ng-c2682051916] tbody>tr>td>div {
+      height: 100%;
+      padding: 12px;
+      display: flex;
+      align-items: center
+    }
+
+    @media (max-width: 992px) {
+      .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] {
+        margin-top: 20px;
+        padding-bottom: 24px
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:not(:first-child):before {
+        border-left: none
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916] {
+        line-height: 1;
+        text-align: center
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916] .unit[_ngcontent-ng-c2682051916] {
+        font-size: 12px
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(2) {
+        margin-top: 10px
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .total-info-box[_ngcontent-ng-c2682051916] .info-item[_ngcontent-ng-c2682051916]>div[_ngcontent-ng-c2682051916]:nth-child(3) {
+        margin-top: 4px
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .table-list[_ngcontent-ng-c2682051916] {
+        display: none
+      }
+
+      .delegate-page[_ngcontent-ng-c2682051916] .table-info-m[_ngcontent-ng-c2682051916] {
+        display: block
+      }
+    }
+
+    .loading-box[_ngcontent-ng-c2682051916] {
+      position: fixed;
+      inset: 0;
+      background: none;
+      z-index: 9999;
+      -webkit-user-select: none;
+      user-select: none;
+      background: #00000030
+    }
+
+    .loading-box[_ngcontent-ng-c2682051916] .loading[_ngcontent-ng-c2682051916] {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%)
+    }
+
+    .loading-box[_ngcontent-ng-c2682051916] .loading[_ngcontent-ng-c2682051916] {
+      background: #fff;
+      box-shadow: 0 1px 2px #00000014, 0 2px 4px #0000001f;
+      border-radius: 38px
+    }
+
+    .loading-box[_ngcontent-ng-c2682051916] .loading[_ngcontent-ng-c2682051916] {
+      padding: 13px 20px 13px 44px
+    }
+
+    .loading-box[_ngcontent-ng-c2682051916] .loading[_ngcontent-ng-c2682051916] img[_ngcontent-ng-c2682051916] {
+      width: 16px;
+      position: absolute;
+      left: 20px;
+      top: 11px
+    }
+
+    .loading-box[_ngcontent-ng-c2682051916] .loading[_ngcontent-ng-c2682051916] img[_ngcontent-ng-c2682051916] {
+      -webkit-animation: _ngcontent-ng-c2682051916_spin 1s linear 1s 5 alternate;
+      animation: _ngcontent-ng-c2682051916_spin 1s linear infinite;
+      display: inline-block
+    }
+
+    @-webkit-keyframes _ngcontent-ng-c2682051916_spin {
+      0% {
+        -webkit-transform: rotate(0deg)
+      }
+
+      to {
+        -webkit-transform: rotate(360deg)
+      }
+    }
+
+    @keyframes _ngcontent-ng-c2682051916_spin {
+      0% {
+        transform: rotate(0)
+      }
+
+      to {
+        transform: rotate(360deg)
+      }
+    }
+  </style>
+  <style type="text/css">
+    @media (min-width: 1600px) {
+      body {}
+    }
+
+    @media (min-width: 1200px) {
+      body {}
+    }
+
+    @media (min-width: 992px) {
+      body {}
+    }
+
+    @media (min-width: 768px) {
+      body {}
+    }
+
+    @media (min-width: 576px) {
+      body {}
+    }
+
+    @media (max-width: 575px) {
+      body {}
+    }
+  </style>
+  <style>
+    @import url("css2.css");
+
+    @keyframes w3m-shake {
+      0% {
+        transform: scale(1) rotate(0deg);
+      }
+
+      20% {
+        transform: scale(1) rotate(-1deg);
+      }
+
+      40% {
+        transform: scale(1) rotate(1.5deg);
+      }
+
+      60% {
+        transform: scale(1) rotate(-1.5deg);
+      }
+
+      80% {
+        transform: scale(1) rotate(1deg);
+      }
+
+      100% {
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    @keyframes w3m-iframe-fade-out {
+      0% {
+        opacity: 1;
+      }
+
+      100% {
+        opacity: 0;
+      }
+    }
+
+    @keyframes w3m-iframe-zoom-in {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+
+      100% {
+        transform: translateY(0px);
+        opacity: 1;
+      }
+    }
+
+    @keyframes w3m-iframe-zoom-in-mobile {
+      0% {
+        transform: scale(0.95);
+        opacity: 0;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    :root {
+      --w3m-modal-width: 360px;
+      --w3m-color-mix-strength: 0%;
+      --w3m-font-family: Inter, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+      ;
+      --w3m-font-size-master: 10px;
+      --w3m-border-radius-master: 4px;
+      --w3m-z-index: 10000;
+
+      --wui-font-family: var(--w3m-font-family);
+
+      --wui-font-size-mini: calc(var(--w3m-font-size-master) * 0.8);
+      --wui-font-size-micro: var(--w3m-font-size-master);
+      --wui-font-size-tiny: calc(var(--w3m-font-size-master) * 1.2);
+      --wui-font-size-small: calc(var(--w3m-font-size-master) * 1.4);
+      --wui-font-size-paragraph: calc(var(--w3m-font-size-master) * 1.6);
+      --wui-font-size-medium: calc(var(--w3m-font-size-master) * 1.8);
+      --wui-font-size-large: calc(var(--w3m-font-size-master) * 2);
+      --wui-font-size-title-6: calc(var(--w3m-font-size-master) * 2.2);
+      --wui-font-size-medium-title: calc(var(--w3m-font-size-master) * 2.4);
+      --wui-font-size-2xl: calc(var(--w3m-font-size-master) * 4);
+
+      --wui-border-radius-5xs: var(--w3m-border-radius-master);
+      --wui-border-radius-4xs: calc(var(--w3m-border-radius-master) * 1.5);
+      --wui-border-radius-3xs: calc(var(--w3m-border-radius-master) * 2);
+      --wui-border-radius-xxs: calc(var(--w3m-border-radius-master) * 3);
+      --wui-border-radius-xs: calc(var(--w3m-border-radius-master) * 4);
+      --wui-border-radius-s: calc(var(--w3m-border-radius-master) * 5);
+      --wui-border-radius-m: calc(var(--w3m-border-radius-master) * 7);
+      --wui-border-radius-l: calc(var(--w3m-border-radius-master) * 9);
+      --wui-border-radius-3xl: calc(var(--w3m-border-radius-master) * 20);
+
+      --wui-font-weight-light: 400;
+      --wui-font-weight-regular: 500;
+      --wui-font-weight-medium: 600;
+      --wui-font-weight-bold: 700;
+
+      --wui-letter-spacing-2xl: -1.6px;
+      --wui-letter-spacing-medium-title: -0.96px;
+      --wui-letter-spacing-title-6: -0.88px;
+      --wui-letter-spacing-large: -0.8px;
+      --wui-letter-spacing-medium: -0.72px;
+      --wui-letter-spacing-paragraph: -0.64px;
+      --wui-letter-spacing-small: -0.56px;
+      --wui-letter-spacing-tiny: -0.48px;
+      --wui-letter-spacing-micro: -0.2px;
+      --wui-letter-spacing-mini: -0.16px;
+
+      --wui-spacing-0: 0px;
+      --wui-spacing-4xs: 2px;
+      --wui-spacing-3xs: 4px;
+      --wui-spacing-xxs: 6px;
+      --wui-spacing-2xs: 7px;
+      --wui-spacing-xs: 8px;
+      --wui-spacing-1xs: 10px;
+      --wui-spacing-s: 12px;
+      --wui-spacing-m: 14px;
+      --wui-spacing-l: 16px;
+      --wui-spacing-2l: 18px;
+      --wui-spacing-xl: 20px;
+      --wui-spacing-xxl: 24px;
+      --wui-spacing-2xl: 32px;
+      --wui-spacing-3xl: 40px;
+      --wui-spacing-4xl: 90px;
+      --wui-spacing-5xl: 95px;
+
+      --wui-icon-box-size-xxs: 14px;
+      --wui-icon-box-size-xs: 20px;
+      --wui-icon-box-size-sm: 24px;
+      --wui-icon-box-size-md: 32px;
+      --wui-icon-box-size-lg: 40px;
+      --wui-icon-box-size-2lg: 48px;
+      --wui-icon-box-size-xl: 64px;
+
+      --wui-icon-size-inherit: inherit;
+      --wui-icon-size-xxs: 10px;
+      --wui-icon-size-xs: 12px;
+      --wui-icon-size-sm: 14px;
+      --wui-icon-size-md: 16px;
+      --wui-icon-size-mdl: 18px;
+      --wui-icon-size-lg: 20px;
+      --wui-icon-size-xl: 24px;
+      --wui-icon-size-xxl: 28px;
+
+      --wui-wallet-image-size-inherit: inherit;
+      --wui-wallet-image-size-sm: 40px;
+      --wui-wallet-image-size-md: 56px;
+      --wui-wallet-image-size-lg: 80px;
+
+      --wui-visual-size-size-inherit: inherit;
+      --wui-visual-size-sm: 40px;
+      --wui-visual-size-md: 55px;
+      --wui-visual-size-lg: 80px;
+
+      --wui-box-size-md: 100px;
+      --wui-box-size-lg: 120px;
+
+      --wui-ease-out-power-2: cubic-bezier(0, 0, 0.22, 1);
+      --wui-ease-out-power-1: cubic-bezier(0, 0, 0.55, 1);
+
+      --wui-ease-in-power-3: cubic-bezier(0.66, 0, 1, 1);
+      --wui-ease-in-power-2: cubic-bezier(0.45, 0, 1, 1);
+      --wui-ease-in-power-1: cubic-bezier(0.3, 0, 1, 1);
+
+      --wui-ease-inout-power-1: cubic-bezier(0.45, 0, 0.55, 1);
+
+      --wui-duration-lg: 200ms;
+      --wui-duration-md: 125ms;
+      --wui-duration-sm: 75ms;
+
+      --wui-path-network-sm: path('M15.4 2.1a5.21 5.21 0 0 1 5.2 0l11.61 6.7a5.21 5.21 0 0 1 2.61 4.52v13.4c0 1.87-1 3.59-2.6 4.52l-11.61 6.7c-1.62.93-3.6.93-5.22 0l-11.6-6.7a5.21 5.21 0 0 1-2.61-4.51v-13.4c0-1.87 1-3.6 2.6-4.52L15.4 2.1Z'
+        );
+
+      --wui-path-network-md: path('M43.4605 10.7248L28.0485 1.61089C25.5438 0.129705 22.4562 0.129705 19.9515 1.61088L4.53951 10.7248C2.03626 12.2051 0.5 14.9365 0.5 17.886V36.1139C0.5 39.0635 2.03626 41.7949 4.53951 43.2752L19.9515 52.3891C22.4562 53.8703 25.5438 53.8703 28.0485 52.3891L43.4605 43.2752C45.9637 41.7949 47.5 39.0635 47.5 36.114V17.8861C47.5 14.9365 45.9637 12.2051 43.4605 10.7248Z'
+        );
+
+      --wui-path-network-lg: path('M78.3244 18.926L50.1808 2.45078C45.7376 -0.150261 40.2624 -0.150262 35.8192 2.45078L7.6756 18.926C3.23322 21.5266 0.5 26.3301 0.5 31.5248V64.4752C0.5 69.6699 3.23322 74.4734 7.6756 77.074L35.8192 93.5492C40.2624 96.1503 45.7376 96.1503 50.1808 93.5492L78.3244 77.074C82.7668 74.4734 85.5 69.6699 85.5 64.4752V31.5248C85.5 26.3301 82.7668 21.5266 78.3244 18.926Z'
+        );
+
+      --wui-width-network-sm: 36px;
+      --wui-width-network-md: 48px;
+      --wui-width-network-lg: 86px;
+
+      --wui-height-network-sm: 40px;
+      --wui-height-network-md: 54px;
+      --wui-height-network-lg: 96px;
+
+      --wui-icon-size-network-xs: 12px;
+      --wui-icon-size-network-sm: 16px;
+      --wui-icon-size-network-md: 24px;
+      --wui-icon-size-network-lg: 42px;
+
+      --wui-color-inherit: inherit;
+
+      --wui-color-inverse-100: #fff;
+      --wui-color-inverse-000: #000;
+
+      --wui-cover: rgba(20, 20, 20, 0.8);
+
+      --wui-color-modal-bg: var(--wui-color-modal-bg-base);
+
+      --wui-color-accent-100: var(--wui-color-accent-base-100);
+      --wui-color-accent-090: var(--wui-color-accent-base-090);
+      --wui-color-accent-080: var(--wui-color-accent-base-080);
+
+      --wui-color-success-100: var(--wui-color-success-base-100);
+      --wui-color-success-125: var(--wui-color-success-base-125);
+
+      --wui-color-warning-100: var(--wui-color-warning-base-100);
+
+      --wui-color-error-100: var(--wui-color-error-base-100);
+      --wui-color-error-125: var(--wui-color-error-base-125);
+
+      --wui-color-blue-100: var(--wui-color-blue-base-100);
+      --wui-color-blue-90: var(--wui-color-blue-base-90);
+
+      --wui-icon-box-bg-error-100: var(--wui-icon-box-bg-error-base-100);
+      --wui-icon-box-bg-blue-100: var(--wui-icon-box-bg-blue-base-100);
+      --wui-icon-box-bg-success-100: var(--wui-icon-box-bg-success-base-100);
+      --wui-icon-box-bg-inverse-100: var(--wui-icon-box-bg-inverse-base-100);
+
+      --wui-all-wallets-bg-100: var(--wui-all-wallets-bg-100);
+
+      --wui-avatar-border: var(--wui-avatar-border-base);
+
+      --wui-thumbnail-border: var(--wui-thumbnail-border-base);
+
+      --wui-box-shadow-blue: var(--wui-color-accent-glass-020);
+    }
+
+    @supports (background: color-mix(in srgb, white 50%, black)) {
+      :root {
+        --wui-color-modal-bg: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-modal-bg-base));
+
+        --wui-box-shadow-blue: color-mix(in srgb, var(--wui-color-accent-100) 20%, transparent);
+
+        --wui-color-accent-100: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 100%,
+            transparent);
+        --wui-color-accent-090: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 90%,
+            transparent);
+        --wui-color-accent-080: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 80%,
+            transparent);
+        --wui-color-accent-glass-090: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 90%,
+            transparent);
+        --wui-color-accent-glass-080: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 80%,
+            transparent);
+        --wui-color-accent-glass-020: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 20%,
+            transparent);
+        --wui-color-accent-glass-015: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 15%,
+            transparent);
+        --wui-color-accent-glass-010: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 10%,
+            transparent);
+        --wui-color-accent-glass-005: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 5%,
+            transparent);
+        --wui-color-accent-002: color-mix(in srgb,
+            var(--wui-color-accent-base-100) 2%,
+            transparent);
+
+        --wui-color-fg-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-100));
+        --wui-color-fg-125: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-125));
+        --wui-color-fg-150: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-150));
+        --wui-color-fg-175: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-175));
+        --wui-color-fg-200: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-200));
+        --wui-color-fg-225: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-225));
+        --wui-color-fg-250: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-250));
+        --wui-color-fg-275: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-275));
+        --wui-color-fg-300: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-300));
+        --wui-color-fg-325: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-325));
+        --wui-color-fg-350: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-fg-350));
+
+        --wui-color-bg-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-100));
+        --wui-color-bg-125: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-125));
+        --wui-color-bg-150: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-150));
+        --wui-color-bg-175: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-175));
+        --wui-color-bg-200: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-200));
+        --wui-color-bg-225: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-225));
+        --wui-color-bg-250: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-250));
+        --wui-color-bg-275: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-275));
+        --wui-color-bg-300: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-300));
+        --wui-color-bg-325: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-325));
+        --wui-color-bg-350: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-bg-350));
+
+        --wui-color-success-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-success-base-100));
+        --wui-color-success-125: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-success-base-125));
+
+        --wui-color-warning-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-warning-base-100));
+
+        --wui-color-error-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-error-base-100));
+        --wui-color-blue-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-blue-base-100));
+        --wui-color-blue-90: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-blue-base-90));
+        --wui-color-error-125: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-color-error-base-125));
+
+        --wui-icon-box-bg-error-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-icon-box-bg-error-base-100));
+        --wui-icon-box-bg-accent-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-icon-box-bg-blue-base-100));
+        --wui-icon-box-bg-success-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-icon-box-bg-success-base-100));
+        --wui-icon-box-bg-inverse-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-icon-box-bg-inverse-base-100));
+
+        --wui-all-wallets-bg-100: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-all-wallets-bg-100));
+
+        --wui-avatar-border: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-avatar-border-base));
+
+        --wui-thumbnail-border: color-mix(in srgb,
+            var(--w3m-color-mix) var(--w3m-color-mix-strength),
+            var(--wui-thumbnail-border-base));
+      }
+    }
+  </style>
+  <style media="enabled">
+    :root {
+      --w3m-color-mix: #000;
+      --w3m-accent: hsla(231, 100%, 70%, 1);
+      --w3m-default: #000;
+
+      --wui-color-modal-bg-base: #fff;
+      --wui-color-accent-base-100: var(--w3m-accent);
+
+      --wui-color-blueberry-100: hsla(231, 100%, 70%, 1);
+      --wui-color-blueberry-090: hsla(231, 97%, 72%, 1);
+      --wui-color-blueberry-080: hsla(231, 92%, 74%, 1);
+
+      --wui-color-fg-100: #141414;
+      --wui-color-fg-125: #2d3131;
+      --wui-color-fg-150: #474d4d;
+      --wui-color-fg-175: #636d6d;
+      --wui-color-fg-200: #798686;
+      --wui-color-fg-225: #828f8f;
+      --wui-color-fg-250: #8b9797;
+      --wui-color-fg-275: #95a0a0;
+      --wui-color-fg-300: #9ea9a9;
+      --wui-color-fg-325: #9a9a9a;
+      --wui-color-fg-350: #d0d0d0;
+
+      --wui-color-bg-100: #ffffff;
+      --wui-color-bg-125: #f5fafa;
+      --wui-color-bg-150: #f3f8f8;
+      --wui-color-bg-175: #eef4f4;
+      --wui-color-bg-200: #eaf1f1;
+      --wui-color-bg-225: #e5eded;
+      --wui-color-bg-250: #e1e9e9;
+      --wui-color-bg-275: #dce7e7;
+      --wui-color-bg-300: #d8e3e3;
+      --wui-color-bg-325: #f3f3f3;
+      --wui-color-bg-350: #202020;
+
+      --wui-color-success-base-100: #26b562;
+      --wui-color-success-base-125: #30a46b;
+
+      --wui-color-warning-base-100: #f3a13f;
+
+      --wui-color-error-base-100: #f05142;
+      --wui-color-error-base-125: #df4a34;
+
+      --wui-color-blue-base-100: rgba(102, 125, 255, 1);
+      --wui-color-blue-base-90: rgba(102, 125, 255, 0.9);
+
+      --wui-color-success-glass-001: rgba(38, 181, 98, 0.01);
+      --wui-color-success-glass-002: rgba(38, 181, 98, 0.02);
+      --wui-color-success-glass-005: rgba(38, 181, 98, 0.05);
+      --wui-color-success-glass-010: rgba(38, 181, 98, 0.1);
+      --wui-color-success-glass-015: rgba(38, 181, 98, 0.15);
+      --wui-color-success-glass-020: rgba(38, 181, 98, 0.2);
+      --wui-color-success-glass-025: rgba(38, 181, 98, 0.25);
+      --wui-color-success-glass-030: rgba(38, 181, 98, 0.3);
+      --wui-color-success-glass-060: rgba(38, 181, 98, 0.6);
+      --wui-color-success-glass-080: rgba(38, 181, 98, 0.8);
+
+      --wui-color-success-glass-reown-020: rgba(48, 164, 107, 0.2);
+
+      --wui-color-warning-glass-reown-020: rgba(243, 161, 63, 0.2);
+
+      --wui-color-error-glass-001: rgba(240, 81, 66, 0.01);
+      --wui-color-error-glass-002: rgba(240, 81, 66, 0.02);
+      --wui-color-error-glass-005: rgba(240, 81, 66, 0.05);
+      --wui-color-error-glass-010: rgba(240, 81, 66, 0.1);
+      --wui-color-error-glass-015: rgba(240, 81, 66, 0.15);
+      --wui-color-error-glass-020: rgba(240, 81, 66, 0.2);
+      --wui-color-error-glass-025: rgba(240, 81, 66, 0.25);
+      --wui-color-error-glass-030: rgba(240, 81, 66, 0.3);
+      --wui-color-error-glass-060: rgba(240, 81, 66, 0.6);
+      --wui-color-error-glass-080: rgba(240, 81, 66, 0.8);
+
+      --wui-color-error-glass-reown-020: rgba(223, 74, 52, 0.2);
+
+      --wui-icon-box-bg-error-base-100: #f4dfdd;
+      --wui-icon-box-bg-blue-base-100: #d9ecfb;
+      --wui-icon-box-bg-success-base-100: #daf0e4;
+      --wui-icon-box-bg-inverse-base-100: #dcecfc;
+
+      --wui-all-wallets-bg-100: #e8f1fa;
+
+      --wui-avatar-border-base: #f3f4f4;
+
+      --wui-thumbnail-border-base: #eaefef;
+
+      --wui-color-gray-glass-001: rgba(0, 0, 0, 0.01);
+      --wui-color-gray-glass-002: rgba(0, 0, 0, 0.02);
+      --wui-color-gray-glass-005: rgba(0, 0, 0, 0.05);
+      --wui-color-gray-glass-010: rgba(0, 0, 0, 0.1);
+      --wui-color-gray-glass-015: rgba(0, 0, 0, 0.15);
+      --wui-color-gray-glass-020: rgba(0, 0, 0, 0.2);
+      --wui-color-gray-glass-025: rgba(0, 0, 0, 0.25);
+      --wui-color-gray-glass-030: rgba(0, 0, 0, 0.3);
+      --wui-color-gray-glass-060: rgba(0, 0, 0, 0.6);
+      --wui-color-gray-glass-080: rgba(0, 0, 0, 0.8);
+      --wui-color-gray-glass-090: rgba(0, 0, 0, 0.9);
+
+      --wui-color-dark-glass-100: rgba(233, 233, 233, 1);
+    }
+  </style>
+  <style>
+    :root {
+      --w3m-color-mix: #fff;
+      --w3m-accent: hsla(230, 100%, 67%, 1);
+      --w3m-default: #fff;
+
+      --wui-color-modal-bg-base: #121313;
+      --wui-color-accent-base-100: var(--w3m-accent);
+
+      --wui-color-blueberry-100: hsla(230, 100%, 67%, 1);
+      --wui-color-blueberry-090: hsla(231, 76%, 61%, 1);
+      --wui-color-blueberry-080: hsla(230, 59%, 55%, 1);
+      --wui-color-blueberry-050: hsla(231, 100%, 70%, 0.1);
+
+      --wui-color-fg-100: #e4e7e7;
+      --wui-color-fg-125: #d0d5d5;
+      --wui-color-fg-150: #a8b1b1;
+      --wui-color-fg-175: #a8b0b0;
+      --wui-color-fg-200: #949e9e;
+      --wui-color-fg-225: #868f8f;
+      --wui-color-fg-250: #788080;
+      --wui-color-fg-275: #788181;
+      --wui-color-fg-300: #6e7777;
+      --wui-color-fg-325: #9a9a9a;
+      --wui-color-fg-350: #363636;
+
+      --wui-color-bg-100: #141414;
+      --wui-color-bg-125: #191a1a;
+      --wui-color-bg-150: #1e1f1f;
+      --wui-color-bg-175: #222525;
+      --wui-color-bg-200: #272a2a;
+      --wui-color-bg-225: #2c3030;
+      --wui-color-bg-250: #313535;
+      --wui-color-bg-275: #363b3b;
+      --wui-color-bg-300: #3b4040;
+      --wui-color-bg-325: #252525;
+      --wui-color-bg-350: #ffffff;
+
+      --wui-color-success-base-100: #26d962;
+      --wui-color-success-base-125: #30a46b;
+
+      --wui-color-warning-base-100: #f3a13f;
+
+      --wui-color-error-base-100: #f25a67;
+      --wui-color-error-base-125: #df4a34;
+
+      --wui-color-blue-base-100: rgba(102, 125, 255, 1);
+      --wui-color-blue-base-90: rgba(102, 125, 255, 0.9);
+
+      --wui-color-success-glass-001: rgba(38, 217, 98, 0.01);
+      --wui-color-success-glass-002: rgba(38, 217, 98, 0.02);
+      --wui-color-success-glass-005: rgba(38, 217, 98, 0.05);
+      --wui-color-success-glass-010: rgba(38, 217, 98, 0.1);
+      --wui-color-success-glass-015: rgba(38, 217, 98, 0.15);
+      --wui-color-success-glass-020: rgba(38, 217, 98, 0.2);
+      --wui-color-success-glass-025: rgba(38, 217, 98, 0.25);
+      --wui-color-success-glass-030: rgba(38, 217, 98, 0.3);
+      --wui-color-success-glass-060: rgba(38, 217, 98, 0.6);
+      --wui-color-success-glass-080: rgba(38, 217, 98, 0.8);
+
+      --wui-color-success-glass-reown-020: rgba(48, 164, 107, 0.2);
+
+      --wui-color-warning-glass-reown-020: rgba(243, 161, 63, 0.2);
+
+      --wui-color-error-glass-001: rgba(242, 90, 103, 0.01);
+      --wui-color-error-glass-002: rgba(242, 90, 103, 0.02);
+      --wui-color-error-glass-005: rgba(242, 90, 103, 0.05);
+      --wui-color-error-glass-010: rgba(242, 90, 103, 0.1);
+      --wui-color-error-glass-015: rgba(242, 90, 103, 0.15);
+      --wui-color-error-glass-020: rgba(242, 90, 103, 0.2);
+      --wui-color-error-glass-025: rgba(242, 90, 103, 0.25);
+      --wui-color-error-glass-030: rgba(242, 90, 103, 0.3);
+      --wui-color-error-glass-060: rgba(242, 90, 103, 0.6);
+      --wui-color-error-glass-080: rgba(242, 90, 103, 0.8);
+
+      --wui-color-error-glass-reown-020: rgba(223, 74, 52, 0.2);
+
+      --wui-color-gray-glass-001: rgba(255, 255, 255, 0.01);
+      --wui-color-gray-glass-002: rgba(255, 255, 255, 0.02);
+      --wui-color-gray-glass-005: rgba(255, 255, 255, 0.05);
+      --wui-color-gray-glass-010: rgba(255, 255, 255, 0.1);
+      --wui-color-gray-glass-015: rgba(255, 255, 255, 0.15);
+      --wui-color-gray-glass-020: rgba(255, 255, 255, 0.2);
+      --wui-color-gray-glass-025: rgba(255, 255, 255, 0.25);
+      --wui-color-gray-glass-030: rgba(255, 255, 255, 0.3);
+      --wui-color-gray-glass-060: rgba(255, 255, 255, 0.6);
+      --wui-color-gray-glass-080: rgba(255, 255, 255, 0.8);
+      --wui-color-gray-glass-090: rgba(255, 255, 255, 0.9);
+
+      --wui-color-dark-glass-100: rgba(42, 42, 42, 1);
+
+      --wui-icon-box-bg-error-base-100: #3c2426;
+      --wui-icon-box-bg-blue-base-100: #20303f;
+      --wui-icon-box-bg-success-base-100: #1f3a28;
+      --wui-icon-box-bg-inverse-base-100: #243240;
+
+      --wui-all-wallets-bg-100: #222b35;
+
+      --wui-avatar-border-base: #252525;
+
+      --wui-thumbnail-border-base: #252525;
+    }
+  </style>
+  <script
+    data-scrapbook-elem="custom-elements-loader">(function (names) { if (!customElements) { return; } for (const name of names) { customElements.define(name, class CustomElement extends HTMLElement { }); } })(["app-root", "router-outlet", "app-dashboard", "app-delegate", "nz-table", "nz-spin", "nz-table-inner-default", "nz-modal", "app-wallet-login", "solana-connect-modal", "w3m-modal"])</script>
+</head>
+
+<body class="solayer-body">
+  <!--nghm-->
+  <app-root _nghost-ng-c1370767182="" ng-version="17.3.12" ng-server-context="ssg">
+    <router-outlet _ngcontent-ng-c1370767182=""></router-outlet>
+    <app-dashboard _nghost-ng-c1011719802="">
+      <!---->
+      <div _ngcontent-ng-c1011719802="" class="dashboard-box">
+        <div _ngcontent-ng-c1011719802="" class="left-box">
+          <div _ngcontent-ng-c1011719802="" class="flex-box flex-column h-100">
+            <div _ngcontent-ng-c1011719802="" class="logo flex center">
+              <div _ngcontent-ng-c1011719802="" class="flex-1" style="height: 38px;"><img _ngcontent-ng-c1011719802=""
+                  src="logo.png" alt="" class="logo-img"></div>
+              <div _ngcontent-ng-c1011719802="" class="private-access"><img _ngcontent-ng-c1011719802=""
+                  src="epoch5-new.png" class="w-[90px] h-6 rounded-sm"></div>
+            </div>
+            <div _ngcontent-ng-c1011719802="" class="flex-1 tvl-info">
+              <div _ngcontent-ng-c1011719802="" class="screen">
+                <div _ngcontent-ng-c1011719802="" class="flex-col justify-start items-start gap-1 inline-flex tvl-box">
+                  <div _ngcontent-ng-c1011719802=""
+                    class="text-[26px] tracking-wide fw-700 tvl-box-hidden total-tvl total-tvl-value"><span
+                      _ngcontent-ng-c1011719802=""> $449.79M </span></div>
+                  <div _ngcontent-ng-c1011719802=""
+                    class="justify-start items-start gap-2 inline-flex tvl-box-hidden total-tvl total-tvl-tips">
+                    <div _ngcontent-ng-c1011719802="" class="fw-550 tracking-tight"> TVL </div>
+                    <div _ngcontent-ng-c1011719802="" class="relative"><span _ngcontent-ng-c1011719802=""
+                        class="info-tip"><img _ngcontent-ng-c1011719802="" src="info-2-theme.png" width="14" height="14"
+                          alt="">
+                        <div _ngcontent-ng-c1011719802="" class="tip-box tip-box-bottom">
+                          <div _ngcontent-ng-c1011719802="" class="f-16 text-fafafa fw-400">Total value locked in
+                            Solayer</div>
+                        </div>
+                      </span></div>
+                  </div>
+                  <div _ngcontent-ng-c1011719802="" class="leading-loose tracking-wide fw-400 tvl-box-show"><span
+                      _ngcontent-ng-c1011719802="" class="fw-550">TVL: </span><span _ngcontent-ng-c1011719802=""
+                      class="fw-700"> $449.79M </span></div>
+                  <!---->
+                </div>
+                <!---->
+                <!---->
+              </div>
+            </div>
+            <div _ngcontent-ng-c1011719802="" class="mobile-episode-enter"><a _ngcontent-ng-c1011719802=""
+                target="_blank" href="https://airdrop.sonic.game/" class="enter-block">
+                <div _ngcontent-ng-c1011719802="">
+                  <div _ngcontent-ng-c1011719802=""><img _ngcontent-ng-c1011719802="" src="sonic-claim.png" alt="">
+                  </div>
+                  <div _ngcontent-ng-c1011719802="">
+                    <div _ngcontent-ng-c1011719802="">SONIC airdrop is live</div>
+                    <div _ngcontent-ng-c1011719802="">Claim your rewards</div>
+                  </div>
+                </div>
+                <div _ngcontent-ng-c1011719802=""><svg _ngcontent-ng-c1011719802="" width="16" height="16"
+                    viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path _ngcontent-ng-c1011719802=""
+                      d="M10.6688 6.27614L4.93109 12.0139L3.98828 11.0711L9.72601 5.33333H4.66883V4H12.0021V11.3333H10.6688V6.27614Z"
+                      fill="#F6F9F8"></path>
+                  </svg></div>
+              </a></div>
+            <!---->
+            <div _ngcontent-ng-c1011719802="" class="logo-content">
+              <div _ngcontent-ng-c1011719802="" class="episode-enter"><a _ngcontent-ng-c1011719802="" target="_blank"
+                  href="https://airdrop.sonic.game/" class="enter-block">
+                  <div _ngcontent-ng-c1011719802="">
+                    <div _ngcontent-ng-c1011719802=""><img _ngcontent-ng-c1011719802="" src="sonic-claim.png" alt="">
+                    </div>
+                    <div _ngcontent-ng-c1011719802="">
+                      <div _ngcontent-ng-c1011719802="">SONIC airdrop is live</div>
+                      <div _ngcontent-ng-c1011719802="">Claim your rewards</div>
+                    </div>
+                  </div>
+                </a></div>
+            </div>
+            <!---->
+          </div>
+        </div>
+        <div _ngcontent-ng-c1011719802="" class="right-box flex-1">
+          <div _ngcontent-ng-c1011719802="" class="header">
+            <div _ngcontent-ng-c1011719802="" class="nav border-b border-stone-300 justify-end items-center gap-6 flex">
+              <div _ngcontent-ng-c1011719802="" class="justify-end items-start gap-[18px] flex"><button
+                  _ngcontent-ng-c1011719802="" routerlink="/dashboard" routerlinkactive="active"
+                  class="button button-link interac-button" tabindex="0">Home</button><button _ngcontent-ng-c1011719802=""
+                  routerlink="/dashboard/defi" routerlinkactive="active" class="button button-link"
+                  tabindex="0">DeFi</button><button _ngcontent-ng-c1011719802="" routerlink="/dashboard/delegate"
+                  routerlinkactive="active" class="button button-link active interact-button" tabindex="0">Delegate</button><button
+                  _ngcontent-ng-c1011719802="" routerlink="/dashboard/account" routerlinkactive="active"
+                  class="button button-link portfolio-btn" tabindex="0">
+                  <!---->My Account<span _ngcontent-ng-c1011719802="" class="to-portfolio"></span>
+                </button>
+                <!---->
+              </div>
+              <!---->
+              <div _ngcontent-ng-c1011719802=""><button _ngcontent-ng-c1011719802="" class="button button-dark"
+                  style="font-size: 12px;"> Connect Wallet </button></div>
+              <!---->
+            </div>
+          </div>
+          <div _ngcontent-ng-c1011719802="" class="content-box">
+            <router-outlet _ngcontent-ng-c1011719802=""></router-outlet>
+            <app-delegate _nghost-ng-c2682051916="">
+              <div _ngcontent-ng-c2682051916="" class="delegate-page">
+                <div _ngcontent-ng-c2682051916="" class="title">
+                  <div _ngcontent-ng-c2682051916=""> Delegate </div>
+                  <div _ngcontent-ng-c2682051916=""> Delegate to endogenous AVSs (e-AVSs) to earn additional rewards and
+                    contribute to securing them via swQoS </div>
+                </div>
+                <div _ngcontent-ng-c2682051916="" class="total-info-box">
+                  <div _ngcontent-ng-c2682051916="" nz-row="" class="ant-row"
+                    style="margin-top: -8px; margin-bottom: -8px;">
+                    <div _ngcontent-ng-c2682051916="" nz-col="" nzspan="12" class="ant-col ant-col-12 ant-col-lg-8"
+                      style="padding-top: 8px; padding-bottom: 8px;">
+                      <div _ngcontent-ng-c2682051916="" class="info-item">
+                        <div _ngcontent-ng-c2682051916=""><span _ngcontent-ng-c2682051916="">TVL</span><img
+                            _ngcontent-ng-c2682051916="" nz-tooltip=""
+                            nztooltiptitle="Total TVL from restaking that is delegated to e-AVSs" src="tips.svg" alt="">
+                          <!---->
+                        </div>
+                        <div _ngcontent-ng-c2682051916=""> 866.4K <span _ngcontent-ng-c2682051916=""
+                            class="unit">sSOL</span></div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" nz-col="" nzspan="12" class="ant-col ant-col-12 ant-col-lg-8"
+                      style="padding-top: 8px; padding-bottom: 8px;">
+                      <div _ngcontent-ng-c2682051916="" class="info-item">
+                        <div _ngcontent-ng-c2682051916=""><span _ngcontent-ng-c2682051916="">Total Delegates</span><img
+                            _ngcontent-ng-c2682051916="" nz-tooltip=""
+                            nztooltiptitle="The total number of stakers that have delegated to e-AVSs" src="tips.svg"
+                            alt="">
+                          <!---->
+                        </div>
+                        <div _ngcontent-ng-c2682051916=""> 169,808 <span _ngcontent-ng-c2682051916=""
+                            class="unit">Users</span></div>
+                      </div>
+                    </div>
+                    <!---->
+                  </div>
+                </div>
+                <div _ngcontent-ng-c2682051916="" class="table-list">
+                  <nz-table _ngcontent-ng-c2682051916="" class="ant-table-wrapper">
+                    <nz-spin class="ant-spin-nested-loading">
+                      <!---->
+                      <!---->
+                      <div class="ant-spin-container">
+                        <!---->
+                        <div class="ant-table ant-table-has-fix-right">
+                          <!---->
+                          <nz-table-inner-default class="ant-table-container">
+                            <div class="ant-table-content">
+                              <table nz-table-content="" style="table-layout: auto;">
+                                <col>
+                                <col>
+                                <col>
+                                <col style="width: 200px; min-width: 200px;">
+                                <!---->
+                                <thead class="ant-table-thead">
+                                  <tr _ngcontent-ng-c2682051916="" class="ant-table-row">
+                                    <th _ngcontent-ng-c2682051916="" class="ant-table-cell">AVS</th>
+                                    <th _ngcontent-ng-c2682051916="" class="ant-table-cell">Total Delegated Stake</th>
+                                    <!---->
+                                    <th _ngcontent-ng-c2682051916="" class="ant-table-cell"># of restakers</th>
+                                    <th _ngcontent-ng-c2682051916="" nzright=""
+                                      class="ant-table-cell-fix-right-first ant-table-cell ant-table-cell-fix-right"
+                                      style="position: sticky;"></th>
+                                  </tr>
+                                  <!---->
+                                </thead>
+                                <!---->
+                                <tbody _ngcontent-ng-c2682051916="" class="ant-table-tbody">
+                                  <!---->
+                                  <!---->
+                                  <!---->
+                                  <!---->
+                                  <!---->
+                                  <tr _ngcontent-ng-c2682051916="" class="item ant-table-row ng-star-inserted">
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916="" class="flex items-center info"
+                                          style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916=""><img _ngcontent-ng-c2682051916="" alt=""
+                                              src="phoenix.jpeg"></div>
+                                          <div _ngcontent-ng-c2682051916="">
+                                            <div _ngcontent-ng-c2682051916="">Phoenix</div>
+                                            <div _ngcontent-ng-c2682051916="">5T3jf..nq4n</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="total-delegated flex justify-center flex-col" style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916="">$16.32M</div>
+                                          <div _ngcontent-ng-c2682051916="">73.00K sSOL</div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <!---->
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="nm-stakers flex justify-center flex-col" style="height: 42px;"> 24865
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="" style="justify-content: flex-end;">
+                                        <div _ngcontent-ng-c2682051916="" class="actions"><button
+                                            _ngcontent-ng-c2682051916="" class="button button-sm button-dark"
+                                            style="opacity: 1;"> Delegate </button><button _ngcontent-ng-c2682051916=""
+                                            class="button button-sm button-default"> Undelegate </button></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!---->
+                                  <!---->
+                                  <tr _ngcontent-ng-c2682051916="" class="item ant-table-row ng-star-inserted">
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916="" class="flex items-center info"
+                                          style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916=""><img _ngcontent-ng-c2682051916="" alt=""
+                                              src="bitget.png"></div>
+                                          <div _ngcontent-ng-c2682051916="">
+                                            <div _ngcontent-ng-c2682051916="">Bitget</div>
+                                            <div _ngcontent-ng-c2682051916="">9PKig..aqS2</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="total-delegated flex justify-center flex-col" style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916="">$26.49M</div>
+                                          <div _ngcontent-ng-c2682051916="">118.44K sSOL</div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <!---->
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="nm-stakers flex justify-center flex-col" style="height: 42px;"> 23103
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="" style="justify-content: flex-end;">
+                                        <div _ngcontent-ng-c2682051916="" class="actions"><button
+                                            _ngcontent-ng-c2682051916="" class="button button-sm button-dark"
+                                            style="opacity: 1;"> Delegate </button><button _ngcontent-ng-c2682051916=""
+                                            class="button button-sm button-default"> Undelegate </button></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!---->
+                                  <!---->
+                                  <tr _ngcontent-ng-c2682051916="" class="item ant-table-row ng-star-inserted">
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916="" class="flex items-center info"
+                                          style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916=""><img _ngcontent-ng-c2682051916="" alt=""
+                                              src="sonic.jpeg"></div>
+                                          <div _ngcontent-ng-c2682051916="">
+                                            <div _ngcontent-ng-c2682051916="">Sonic</div>
+                                            <div _ngcontent-ng-c2682051916="">HBkJw..j6uk</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="total-delegated flex justify-center flex-col" style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916="">$141.46M</div>
+                                          <div _ngcontent-ng-c2682051916="">632.48K sSOL</div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <!---->
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="nm-stakers flex justify-center flex-col" style="height: 42px;"> 132965
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="" style="justify-content: flex-end;">
+                                        <div _ngcontent-ng-c2682051916="" class="actions"><button
+                                            _ngcontent-ng-c2682051916="" class="button button-sm button-dark"
+                                            style="opacity: 1;"> Delegate </button><button _ngcontent-ng-c2682051916=""
+                                            class="button button-sm button-default"> Undelegate </button></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!---->
+                                  <!---->
+                                  <tr _ngcontent-ng-c2682051916="" class="item ant-table-row ng-star-inserted">
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916="" class="flex items-center info"
+                                          style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916=""><img _ngcontent-ng-c2682051916="" alt=""
+                                              src="hashkey_cloud.jpg"></div>
+                                          <div _ngcontent-ng-c2682051916="">
+                                            <div _ngcontent-ng-c2682051916="">HashKey Cloud</div>
+                                            <div _ngcontent-ng-c2682051916="">745mk..zbwE</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="total-delegated flex justify-center flex-col" style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916="">$4.67M</div>
+                                          <div _ngcontent-ng-c2682051916="">20.90K sSOL</div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <!---->
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="nm-stakers flex justify-center flex-col" style="height: 42px;"> 14539
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="" style="justify-content: flex-end;">
+                                        <div _ngcontent-ng-c2682051916="" class="actions"><button
+                                            _ngcontent-ng-c2682051916="" class="button button-sm button-dark"
+                                            style="opacity: 1;"> Delegate </button><button _ngcontent-ng-c2682051916=""
+                                            class="button button-sm button-default"> Undelegate </button></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!---->
+                                  <!---->
+                                  <tr _ngcontent-ng-c2682051916="" class="item ant-table-row ng-star-inserted">
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916="" class="flex items-center info"
+                                          style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916=""><img _ngcontent-ng-c2682051916="" alt=""
+                                              src="bonk.jpg"></div>
+                                          <div _ngcontent-ng-c2682051916="">
+                                            <div _ngcontent-ng-c2682051916="">BONK</div>
+                                            <div _ngcontent-ng-c2682051916="">E2VVT..W6fL</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="total-delegated flex justify-center flex-col" style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916="">$2.77M</div>
+                                          <div _ngcontent-ng-c2682051916="">12.40K sSOL</div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <!---->
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="nm-stakers flex justify-center flex-col" style="height: 42px;"> 8217
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="" style="justify-content: flex-end;">
+                                        <div _ngcontent-ng-c2682051916="" class="actions"><button
+                                            _ngcontent-ng-c2682051916="" class="button button-sm button-dark"
+                                            style="opacity: 1;"> Delegate </button><button _ngcontent-ng-c2682051916=""
+                                            class="button button-sm button-default"> Undelegate </button></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!---->
+                                  <!---->
+                                  <tr _ngcontent-ng-c2682051916="" class="item ant-table-row ng-star-inserted">
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916="" class="flex items-center info"
+                                          style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916=""><img _ngcontent-ng-c2682051916="" alt=""
+                                              src="Altlayer.png"></div>
+                                          <div _ngcontent-ng-c2682051916="">
+                                            <div _ngcontent-ng-c2682051916="">AltLayer</div>
+                                            <div _ngcontent-ng-c2682051916="">EBYsv..mgHX</div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="total-delegated flex justify-center flex-col" style="height: 42px;">
+                                          <div _ngcontent-ng-c2682051916="">$2.05M</div>
+                                          <div _ngcontent-ng-c2682051916="">9.19K sSOL</div>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <!---->
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="">
+                                        <div _ngcontent-ng-c2682051916=""
+                                          class="nm-stakers flex justify-center flex-col" style="height: 42px;"> 6263
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td _ngcontent-ng-c2682051916="" class="ant-table-cell">
+                                      <div _ngcontent-ng-c2682051916="" style="justify-content: flex-end;">
+                                        <div _ngcontent-ng-c2682051916="" class="actions"><button
+                                            _ngcontent-ng-c2682051916="" class="button button-sm button-dark"
+                                            style="opacity: 1;"> Delegate </button><button _ngcontent-ng-c2682051916=""
+                                            class="button button-sm button-default"> Undelegate </button></div>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <!---->
+                                  <!---->
+                                  <!---->
+                                  <!---->
+                                </tbody>
+                                <!---->
+                              </table>
+                            </div>
+                          </nz-table-inner-default>
+                          <!---->
+                          <!---->
+                          <!---->
+                        </div>
+                        <!---->
+                        <!---->
+                        <!---->
+                        <!---->
+                      </div>
+                      <!---->
+                    </nz-spin>
+                    <!---->
+                    <!---->
+                  </nz-table>
+                </div>
+                <div _ngcontent-ng-c2682051916="" class="mt-24 table-info-m">
+                  <!---->
+                  <!---->
+                  <div _ngcontent-ng-c2682051916=""
+                    class="w-[100%] p-4 bg-white rounded-lg border border-neutral-200 flex-col justify-center items-start gap-4 inline-flex ng-star-inserted"
+                    style="margin-bottom: 12px;">
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-2 inline-flex">
+                      <img _ngcontent-ng-c2682051916="" class="w-9 h-9" style="border-radius: 36px;" src="phoenix.jpeg">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 pt-0.5 flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-zinc-800 text-base leading-tight">
+                          Phoenix </div>
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-neutral-400 text-[10px]"> 5T3jf..nq4n
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch h-[0px] border border-neutral-200"></div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-4 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          73.00K sSOL </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]">Total delegated</div>
+                      </div>
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          24865 </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]"># of stakers</div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916=""
+                      class="self-stretch pt-2 justify-start items-center gap-2 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-zinc-800 rounded justify-center items-center gap-1 flex ng-star-inserted"
+                        style="cursor: pointer;">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-white text-xs leading-none"> Delegate
+                        </div>
+                      </div>
+                      <!---->
+                      <!---->
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-black bg-opacity-10 rounded justify-center items-center gap-1 flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-zinc-800 text-xs leading-none"
+                          style="cursor: pointer;"> Undelegate </div>
+                      </div>
+                      <!---->
+                    </div>
+                  </div>
+                  <!---->
+                  <!---->
+                  <div _ngcontent-ng-c2682051916=""
+                    class="w-[100%] p-4 bg-white rounded-lg border border-neutral-200 flex-col justify-center items-start gap-4 inline-flex ng-star-inserted"
+                    style="margin-bottom: 12px;">
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-2 inline-flex">
+                      <img _ngcontent-ng-c2682051916="" class="w-9 h-9" style="border-radius: 36px;" src="bitget.png">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 pt-0.5 flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-zinc-800 text-base leading-tight">
+                          Bitget </div>
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-neutral-400 text-[10px]"> 9PKig..aqS2
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch h-[0px] border border-neutral-200"></div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-4 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          118.44K sSOL </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]">Total delegated</div>
+                      </div>
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          23103 </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]"># of stakers</div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916=""
+                      class="self-stretch pt-2 justify-start items-center gap-2 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-zinc-800 rounded justify-center items-center gap-1 flex ng-star-inserted"
+                        style="cursor: pointer;">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-white text-xs leading-none"> Delegate
+                        </div>
+                      </div>
+                      <!---->
+                      <!---->
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-black bg-opacity-10 rounded justify-center items-center gap-1 flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-zinc-800 text-xs leading-none"
+                          style="cursor: pointer;"> Undelegate </div>
+                      </div>
+                      <!---->
+                    </div>
+                  </div>
+                  <!---->
+                  <!---->
+                  <div _ngcontent-ng-c2682051916=""
+                    class="w-[100%] p-4 bg-white rounded-lg border border-neutral-200 flex-col justify-center items-start gap-4 inline-flex ng-star-inserted"
+                    style="margin-bottom: 12px;">
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-2 inline-flex">
+                      <img _ngcontent-ng-c2682051916="" class="w-9 h-9" style="border-radius: 36px;" src="sonic.jpeg">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 pt-0.5 flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-zinc-800 text-base leading-tight">
+                          Sonic </div>
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-neutral-400 text-[10px]"> HBkJw..j6uk
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch h-[0px] border border-neutral-200"></div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-4 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          632.48K sSOL </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]">Total delegated</div>
+                      </div>
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          132965 </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]"># of stakers</div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916=""
+                      class="self-stretch pt-2 justify-start items-center gap-2 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-zinc-800 rounded justify-center items-center gap-1 flex ng-star-inserted"
+                        style="cursor: pointer;">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-white text-xs leading-none"> Delegate
+                        </div>
+                      </div>
+                      <!---->
+                      <!---->
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-black bg-opacity-10 rounded justify-center items-center gap-1 flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-zinc-800 text-xs leading-none"
+                          style="cursor: pointer;"> Undelegate </div>
+                      </div>
+                      <!---->
+                    </div>
+                  </div>
+                  <!---->
+                  <!---->
+                  <div _ngcontent-ng-c2682051916=""
+                    class="w-[100%] p-4 bg-white rounded-lg border border-neutral-200 flex-col justify-center items-start gap-4 inline-flex ng-star-inserted"
+                    style="margin-bottom: 12px;">
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-2 inline-flex">
+                      <img _ngcontent-ng-c2682051916="" class="w-9 h-9" style="border-radius: 36px;"
+                        src="hashkey_cloud.jpg">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 pt-0.5 flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-zinc-800 text-base leading-tight">
+                          HashKey Cloud </div>
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-neutral-400 text-[10px]"> 745mk..zbwE
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch h-[0px] border border-neutral-200"></div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-4 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          20.90K sSOL </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]">Total delegated</div>
+                      </div>
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          14539 </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]"># of stakers</div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916=""
+                      class="self-stretch pt-2 justify-start items-center gap-2 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-zinc-800 rounded justify-center items-center gap-1 flex ng-star-inserted"
+                        style="cursor: pointer;">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-white text-xs leading-none"> Delegate
+                        </div>
+                      </div>
+                      <!---->
+                      <!---->
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-black bg-opacity-10 rounded justify-center items-center gap-1 flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-zinc-800 text-xs leading-none"
+                          style="cursor: pointer;"> Undelegate </div>
+                      </div>
+                      <!---->
+                    </div>
+                  </div>
+                  <!---->
+                  <!---->
+                  <div _ngcontent-ng-c2682051916=""
+                    class="w-[100%] p-4 bg-white rounded-lg border border-neutral-200 flex-col justify-center items-start gap-4 inline-flex ng-star-inserted"
+                    style="margin-bottom: 12px;">
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-2 inline-flex">
+                      <img _ngcontent-ng-c2682051916="" class="w-9 h-9" style="border-radius: 36px;" src="bonk.jpg">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 pt-0.5 flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-zinc-800 text-base leading-tight">
+                          BONK </div>
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-neutral-400 text-[10px]"> E2VVT..W6fL
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch h-[0px] border border-neutral-200"></div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-4 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          12.40K sSOL </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]">Total delegated</div>
+                      </div>
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          8217 </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]"># of stakers</div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916=""
+                      class="self-stretch pt-2 justify-start items-center gap-2 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-zinc-800 rounded justify-center items-center gap-1 flex ng-star-inserted"
+                        style="cursor: pointer;">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-white text-xs leading-none"> Delegate
+                        </div>
+                      </div>
+                      <!---->
+                      <!---->
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-black bg-opacity-10 rounded justify-center items-center gap-1 flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-zinc-800 text-xs leading-none"
+                          style="cursor: pointer;"> Undelegate </div>
+                      </div>
+                      <!---->
+                    </div>
+                  </div>
+                  <!---->
+                  <!---->
+                  <div _ngcontent-ng-c2682051916=""
+                    class="w-[100%] p-4 bg-white rounded-lg border border-neutral-200 flex-col justify-center items-start gap-4 inline-flex ng-star-inserted"
+                    style="margin-bottom: 12px;">
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-2 inline-flex">
+                      <img _ngcontent-ng-c2682051916="" class="w-9 h-9" style="border-radius: 36px;" src="Altlayer.png">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 pt-0.5 flex-col justify-center items-start gap-0.5 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-zinc-800 text-base leading-tight">
+                          AltLayer </div>
+                        <div _ngcontent-ng-c2682051916="" class="self-stretch text-neutral-400 text-[10px]"> EBYsv..mgHX
+                        </div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch h-[0px] border border-neutral-200"></div>
+                    <div _ngcontent-ng-c2682051916="" class="self-stretch justify-start items-center gap-4 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          9.19K sSOL </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]">Total delegated</div>
+                      </div>
+                      <div _ngcontent-ng-c2682051916=""
+                        class="flex-1 grow shrink basis-0 flex-col justify-center items-start gap-1 inline-flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-zinc-800 text-sm font-normal leading-[16.80px]">
+                          6263 </div>
+                        <div _ngcontent-ng-c2682051916="" class="text-neutral-400 text-[10px]"># of stakers</div>
+                      </div>
+                    </div>
+                    <div _ngcontent-ng-c2682051916=""
+                      class="self-stretch pt-2 justify-start items-center gap-2 inline-flex">
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-zinc-800 rounded justify-center items-center gap-1 flex ng-star-inserted"
+                        style="cursor: pointer;">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-white text-xs leading-none"> Delegate
+                        </div>
+                      </div>
+                      <!---->
+                      <!---->
+                      <div _ngcontent-ng-c2682051916=""
+                        class="grow shrink basis-0 h-8 px-3 py-1 bg-black bg-opacity-10 rounded justify-center items-center gap-1 flex">
+                        <div _ngcontent-ng-c2682051916="" class="text-center text-zinc-800 text-xs leading-none"
+                          style="cursor: pointer;"> Undelegate </div>
+                      </div>
+                      <!---->
+                    </div>
+                  </div>
+                  <!---->
+                  <!---->
+                  <!---->
+                </div>
+              </div>
+              <!---->
+            </app-delegate>
+            <!---->
+          </div>
+        </div>
+        <div _ngcontent-ng-c1011719802="" class="bottom-box"><a _ngcontent-ng-c1011719802="" routerlink="/dashboard"
+            routerlinkactive="active" href="https://app.solayer.org/dashboard">
+            <div _ngcontent-ng-c1011719802="" class="tab"><svg _ngcontent-ng-c1011719802="" width="21" height="20"
+                viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path _ngcontent-ng-c1011719802=""
+                  d="M10.875 15.625C10.5333 15.625 10.25 15.3417 10.25 15V12.5C10.25 12.1583 10.5333 11.875 10.875 11.875C11.2167 11.875 11.5 12.1583 11.5 12.5V15C11.5 15.3417 11.2167 15.625 10.875 15.625Z"
+                  fill="#929796"></path>
+                <path _ngcontent-ng-c1011719802=""
+                  d="M15.5416 18.8H6.2083C4.69163 18.8 3.3083 17.6333 3.0583 16.1417L1.94997 9.50001C1.76663 8.46668 2.27497 7.14168 3.09997 6.48335L8.87497 1.85835C9.99163 0.958348 11.75 0.966681 12.875 1.86668L18.65 6.48335C19.4666 7.14168 19.9666 8.46668 19.8 9.50001L18.6916 16.1333C18.4416 17.6083 17.025 18.8 15.5416 18.8ZM10.8666 2.44168C10.425 2.44168 9.9833 2.57501 9.6583 2.83335L3.8833 7.46668C3.41663 7.84168 3.0833 8.70835 3.1833 9.30001L4.29163 15.9333C4.44163 16.8083 5.31663 17.55 6.2083 17.55H15.5416C16.4333 17.55 17.3083 16.8083 17.4583 15.925L18.5666 9.29168C18.6583 8.70835 18.325 7.82501 17.8666 7.45835L12.0916 2.84168C11.7583 2.57501 11.3083 2.44168 10.8666 2.44168Z"
+                  fill="#929796"></path>
+              </svg><svg _ngcontent-ng-c1011719802="" width="21" height="20" viewBox="0 0 21 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg" class="active-svg">
+                <path _ngcontent-ng-c1011719802=""
+                  d="M10.875 15.625C10.5333 15.625 10.25 15.3417 10.25 15V12.5C10.25 12.1583 10.5333 11.875 10.875 11.875C11.2167 11.875 11.5 12.1583 11.5 12.5V15C11.5 15.3417 11.2167 15.625 10.875 15.625Z"
+                  fill="#151E1C"></path>
+                <path _ngcontent-ng-c1011719802=""
+                  d="M15.5416 18.8H6.2083C4.69163 18.8 3.3083 17.6333 3.0583 16.1417L1.94997 9.50001C1.76663 8.46668 2.27497 7.14168 3.09997 6.48335L8.87497 1.85835C9.99163 0.958348 11.75 0.966681 12.875 1.86668L18.65 6.48335C19.4666 7.14168 19.9666 8.46668 19.8 9.50001L18.6916 16.1333C18.4416 17.6083 17.025 18.8 15.5416 18.8ZM10.8666 2.44168C10.425 2.44168 9.9833 2.57501 9.6583 2.83335L3.8833 7.46668C3.41663 7.84168 3.0833 8.70835 3.1833 9.30001L4.29163 15.9333C4.44163 16.8083 5.31663 17.55 6.2083 17.55H15.5416C16.4333 17.55 17.3083 16.8083 17.4583 15.925L18.5666 9.29168C18.6583 8.70835 18.325 7.82501 17.8666 7.45835L12.0916 2.84168C11.7583 2.57501 11.3083 2.44168 10.8666 2.44168Z"
+                  fill="#151E1C"></path>
+              </svg></div>
+            <div _ngcontent-ng-c1011719802="" class="text">Home</div>
+          </a><a _ngcontent-ng-c1011719802="" routerlink="/dashboard/defi" routerlinkactive="active"
+            href="https://app.solayer.org/dashboard/defi">
+            <div _ngcontent-ng-c1011719802="" class="tab"><svg _ngcontent-ng-c1011719802="" width="21" height="20"
+                viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active-svg">
+                <g _ngcontent-ng-c1011719802="" clip-path="url(#clip0_228_626)">
+                  <path _ngcontent-ng-c1011719802=""
+                    d="M10.6249 2.5L17.2916 6.25V13.75L10.6249 17.5L3.95825 13.75V6.25L10.6249 2.5Z" stroke="#151E1C"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path _ngcontent-ng-c1011719802="" d="M10.625 10L17.2917 6.25" stroke="#151E1C" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path _ngcontent-ng-c1011719802="" d="M10.625 10V17.5" stroke="#151E1C" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path _ngcontent-ng-c1011719802="" d="M10.6249 10L3.95825 6.25" stroke="#151E1C" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+                <defs _ngcontent-ng-c1011719802="">
+                  <clipPath _ngcontent-ng-c1011719802="" id="clip0_228_626">
+                    <rect _ngcontent-ng-c1011719802="" width="20" height="20" fill="white" transform="translate(0.625)">
+                    </rect>
+                  </clipPath>
+                </defs>
+              </svg><svg _ngcontent-ng-c1011719802="" width="21" height="20" viewBox="0 0 21 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <g _ngcontent-ng-c1011719802="" clip-path="url(#clip0_228_626)">
+                  <path _ngcontent-ng-c1011719802=""
+                    d="M10.6249 2.5L17.2916 6.25V13.75L10.6249 17.5L3.95825 13.75V6.25L10.6249 2.5Z" stroke="#929796"
+                    stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path _ngcontent-ng-c1011719802="" d="M10.625 10L17.2917 6.25" stroke="#929796" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path _ngcontent-ng-c1011719802="" d="M10.625 10V17.5" stroke="#929796" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                  <path _ngcontent-ng-c1011719802="" d="M10.6249 10L3.95825 6.25" stroke="#929796" stroke-width="1.4"
+                    stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+                <defs _ngcontent-ng-c1011719802="">
+                  <clipPath _ngcontent-ng-c1011719802="" id="clip0_228_626">
+                    <rect _ngcontent-ng-c1011719802="" width="20" height="20" fill="white" transform="translate(0.625)">
+                    </rect>
+                  </clipPath>
+                </defs>
+              </svg></div>
+            <div _ngcontent-ng-c1011719802="" class="text">Defi</div>
+          </a><a _ngcontent-ng-c1011719802="" routerlink="/dashboard/delegate" routerlinkactive="active" href=""
+            class="active">
+            <div _ngcontent-ng-c1011719802="" class="tab"><svg _ngcontent-ng-c1011719802="" width="21" height="20"
+                viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="active-svg">
+                <path _ngcontent-ng-c1011719802=""
+                  d="M7.87492 10.4163L5.79159 12.4997L7.87492 14.583L9.95825 12.4997L7.87492 10.4163ZM12.8749 2.08301C10.0186 2.08301 7.67862 4.29387 7.47294 7.0977C4.66912 7.30338 2.45825 9.64334 2.45825 12.4997C2.45825 15.4913 4.88338 17.9163 7.87492 17.9163C10.7313 17.9163 13.0713 15.7055 13.2769 12.9017C16.0808 12.696 18.2916 10.356 18.2916 7.49967C18.2916 4.50813 15.8665 2.08301 12.8749 2.08301ZM13.1444 11.2402C12.6728 9.26017 11.1144 7.70172 9.13442 7.23022C9.27259 5.28492 10.8944 3.74967 12.8749 3.74967C14.946 3.74967 16.6249 5.42861 16.6249 7.49967C16.6249 9.48017 15.0897 11.102 13.1444 11.2402ZM11.6249 12.4997C11.6249 14.5708 9.946 16.2497 7.87492 16.2497C5.80385 16.2497 4.12492 14.5708 4.12492 12.4997C4.12492 10.4286 5.80385 8.74967 7.87492 8.74967C9.946 8.74967 11.6249 10.4286 11.6249 12.4997ZM2.87492 5.83301C2.87492 3.99206 4.3673 2.49967 6.20825 2.49967H7.45825V4.16634H6.20825C5.28778 4.16634 4.54159 4.91253 4.54159 5.83301V7.08301H2.87492V5.83301ZM16.2083 14.1663V12.9163H17.8749V14.1663C17.8749 16.0073 16.3825 17.4997 14.5416 17.4997H13.2916V15.833H14.5416C15.4621 15.833 16.2083 15.0868 16.2083 14.1663Z"
+                  fill="#151E1C"></path>
+              </svg><svg _ngcontent-ng-c1011719802="" width="21" height="20" viewBox="0 0 21 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path _ngcontent-ng-c1011719802=""
+                  d="M7.87492 10.4163L5.79159 12.4997L7.87492 14.583L9.95825 12.4997L7.87492 10.4163ZM12.8749 2.08301C10.0186 2.08301 7.67862 4.29387 7.47294 7.0977C4.66912 7.30338 2.45825 9.64334 2.45825 12.4997C2.45825 15.4913 4.88338 17.9163 7.87492 17.9163C10.7313 17.9163 13.0713 15.7055 13.2769 12.9017C16.0808 12.696 18.2916 10.356 18.2916 7.49967C18.2916 4.50813 15.8665 2.08301 12.8749 2.08301ZM13.1444 11.2402C12.6728 9.26017 11.1144 7.70172 9.13442 7.23022C9.27259 5.28492 10.8944 3.74967 12.8749 3.74967C14.946 3.74967 16.6249 5.42861 16.6249 7.49967C16.6249 9.48017 15.0897 11.102 13.1444 11.2402ZM11.6249 12.4997C11.6249 14.5708 9.946 16.2497 7.87492 16.2497C5.80385 16.2497 4.12492 14.5708 4.12492 12.4997C4.12492 10.4286 5.80385 8.74967 7.87492 8.74967C9.946 8.74967 11.6249 10.4286 11.6249 12.4997ZM2.87492 5.83301C2.87492 3.99206 4.3673 2.49967 6.20825 2.49967H7.45825V4.16634H6.20825C5.28778 4.16634 4.54159 4.91253 4.54159 5.83301V7.08301H2.87492V5.83301ZM16.2083 14.1663V12.9163H17.8749V14.1663C17.8749 16.0073 16.3825 17.4997 14.5416 17.4997H13.2916V15.833H14.5416C15.4621 15.833 16.2083 15.0868 16.2083 14.1663Z"
+                  fill="#929796"></path>
+              </svg></div>
+            <div _ngcontent-ng-c1011719802="" class="text">Delegate</div>
+          </a>
+          <!----><a _ngcontent-ng-c1011719802="">
+            <div _ngcontent-ng-c1011719802="" class="tab"><img _ngcontent-ng-c1011719802="" src="avatar.png" alt=""
+                class="active-svg" style="width: 20px; height: 20px;"><img _ngcontent-ng-c1011719802="" src="avatar.png"
+                alt="" style="width: 20px; height: 20px;"></div>
+            <div _ngcontent-ng-c1011719802="" class="text"> My Profile </div>
+          </a>
+          <!---->
+        </div>
+      </div>
+      <!---->
+      <!---->
+      <nz-modal _ngcontent-ng-c1011719802=""></nz-modal>
+      <!---->
+      <nz-modal _ngcontent-ng-c1011719802=""></nz-modal>
+      <!---->
+      <!---->
+    </app-dashboard>
+    <!---->
+    <!---->
+    <!---->
+    <app-wallet-login _ngcontent-ng-c1370767182="" _nghost-ng-c2791745104="">
+      <nz-modal _ngcontent-ng-c2791745104="" nzwidth="420px"></nz-modal>
+      <!---->
+    </app-wallet-login>
+  </app-root>
+
+
+  <iframe height="1" width="1" style="position: absolute; top: 0px; left: 0px; border: none; visibility: hidden;"
+    src="index_1.html"></iframe>
+  <solana-connect-modal
+    data-scrapbook-shadowdom="<style>@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+:host {
+  --hover-opacity: 0.6;
+}
+
+.sc_hover_fade:hover {
+  opacity: var(--hover-opacity);
+}
+
+.sc_fade {
+  opacity: var(--hover-opacity);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #54189e;
+}
+</style><div id=&quot;__sc__outer_modal&quot; style=&quot;position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 1000; display: none;&quot;><div class=&quot;fc-0-0-0-255 font-size-20 hf ff-monospace bg-0-0-0-51 s e wf ui s e&quot; style=&quot;animation: 0.5s ease 0s 1 normal none running fadeIn;&quot;><div><style>@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {.s.r > .s { flex-basis: auto !important; } .s.r > .s.ctr { flex-basis: auto !important; }}
+input[type=&quot;search&quot;],
+input[type=&quot;search&quot;]::-webkit-search-decoration,
+input[type=&quot;search&quot;]::-webkit-search-cancel-button,
+input[type=&quot;search&quot;]::-webkit-search-results-button,
+input[type=&quot;search&quot;]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+input[type=range] {
+  -webkit-appearance: none; 
+  background: transparent;
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:10;
+  width: 100%;
+  outline: dashed 1px;
+  height: 100%;
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-track {
+    background: transparent;
+    cursor: pointer;
+}
+input[type=range]::-ms-track {
+    background: transparent;
+    cursor: pointer;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range]::-moz-range-thumb {
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range]::-ms-thumb {
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range][orient=vertical]{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical;  /* WebKit */
+}
+
+.explain {
+    border: 6px solid rgb(174, 121, 15) !important;
+}
+.explain > .s {
+    border: 4px dashed rgb(0, 151, 167) !important;
+}
+
+.ctr {
+    border: none !important;
+}
+.explain > .ctr > .s {
+    border: 4px dashed rgb(0, 151, 167) !important;
+}
+
+html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s.e.ic.hf > img{max-height:100%;object-fit:cover;}.s.e.ic.wf > img{max-width:100%;object-fit:cover;}.s:focus{outline:none;}.ui{width:100%;height:auto;min-height:100%;z-index:0;}.ui.s.hf{height:100%;}.ui.s.hf > .hf{height:100%;}.ui > .fr.nb{position:fixed;z-index:20;}.nb{position:relative;border:none;display:flex;flex-direction:row;flex-basis:auto;}.nb.e{display:flex;flex-direction:column;white-space:pre;}.nb.e.hbh{z-index:0;}.nb.e.hbh > .bh{z-index:-1;}.nb.e.sbt > .t.hf{flex-grow:0;}.nb.e.sbt > .t.wf{align-self:auto !important;}.nb.e > .hc{height:auto;}.nb.e > .hf{flex-grow:100000;}.nb.e > .wf{width:100%;}.nb.e > .wfp{width:100%;}.nb.e > .wc{align-self:flex-start;}.nb.e.ct{justify-content:flex-start;}.nb.e > .s.at{margin-bottom:auto !important;margin-top:0 !important;}.nb.e.cb{justify-content:flex-end;}.nb.e > .s.ab{margin-top:auto !important;margin-bottom:0 !important;}.nb.e.cr{align-items:flex-end;}.nb.e > .s.ar{align-self:flex-end;}.nb.e.cl{align-items:flex-start;}.nb.e > .s.al{align-self:flex-start;}.nb.e.ccx{align-items:center;}.nb.e > .s.cx{align-self:center;}.nb.e.ccy > .s{margin-top:auto;margin-bottom:auto;}.nb.e > .s.cy{margin-top:auto !important;margin-bottom:auto !important;}.nb.a{position:absolute;bottom:100%;left:0;width:100%;z-index:20;margin:0 !important;pointer-events:none;}.nb.a > .hf{height:auto;}.nb.a > .wf{width:100%;}.nb.a > *{pointer-events:auto;}.nb.b{position:absolute;bottom:0;left:0;height:0;width:100%;z-index:20;margin:0 !important;pointer-events:none;}.nb.b > *{pointer-events:auto;}.nb.b > .hf{height:auto;}.nb.or{position:absolute;left:100%;top:0;height:100%;margin:0 !important;z-index:20;pointer-events:none;}.nb.or > *{pointer-events:auto;}.nb.ol{position:absolute;right:100%;top:0;height:100%;margin:0 !important;z-index:20;pointer-events:none;}.nb.ol > *{pointer-events:auto;}.nb.fr{position:absolute;width:100%;height:100%;left:0;top:0;margin:0 !important;pointer-events:none;}.nb.fr > *{pointer-events:auto;}.nb.bh{position:absolute;width:100%;height:100%;left:0;top:0;margin:0 !important;z-index:0;pointer-events:none;}.nb.bh > *{pointer-events:auto;}.s{position:relative;border:none;flex-shrink:0;display:flex;flex-direction:row;flex-basis:auto;resize:none;font-feature-settings:inherit;box-sizing:border-box;margin:0;padding:0;border-width:0;border-style:solid;font-size:inherit;color:inherit;font-family:inherit;line-height:1;font-weight:inherit;text-decoration:none;font-style:inherit;}.s.wrp{flex-wrap:wrap;}.s.notxt{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;}.s.cptr{cursor:pointer;}.s.ctxt{cursor:text;}.s.ppe{pointer-events:none !important;}.s.cpe{pointer-events:auto !important;}.s.clr{opacity:0;}.s.oq{opacity:1;}.s.hvclr:hover{opacity:0;}.s.hvoq:hover{opacity:1;}.s.fcsclr:focus{opacity:0;}.s.fcsoq:focus{opacity:1;}.s.atvclr:active{opacity:0;}.s.atvoq:active{opacity:1;}.s.ts{transition:transform 160ms, opacity 160ms, filter 160ms, background-color 160ms, color 160ms, font-size 160ms;}.s.sb{overflow:auto;flex-shrink:1;}.s.sbx{overflow-x:auto;}.s.sbx.r{flex-shrink:1;}.s.sby{overflow-y:auto;}.s.sby.c{flex-shrink:1;}.s.sby.e{flex-shrink:1;}.s.cp{overflow:hidden;}.s.cpx{overflow-x:hidden;}.s.cpy{overflow-y:hidden;}.s.wc{width:auto;}.s.bn{border-width:0;}.s.bd{border-style:dashed;}.s.bdt{border-style:dotted;}.s.bs{border-style:solid;}.s.t{white-space:pre;display:inline-block;}.s.it{line-height:1.05;background:transparent;text-align:inherit;}.s.e{display:flex;flex-direction:column;white-space:pre;}.s.e.hbh{z-index:0;}.s.e.hbh > .bh{z-index:-1;}.s.e.sbt > .t.hf{flex-grow:0;}.s.e.sbt > .t.wf{align-self:auto !important;}.s.e > .hc{height:auto;}.s.e > .hf{flex-grow:100000;}.s.e > .wf{width:100%;}.s.e > .wfp{width:100%;}.s.e > .wc{align-self:flex-start;}.s.e.ct{justify-content:flex-start;}.s.e > .s.at{margin-bottom:auto !important;margin-top:0 !important;}.s.e.cb{justify-content:flex-end;}.s.e > .s.ab{margin-top:auto !important;margin-bottom:0 !important;}.s.e.cr{align-items:flex-end;}.s.e > .s.ar{align-self:flex-end;}.s.e.cl{align-items:flex-start;}.s.e > .s.al{align-self:flex-start;}.s.e.ccx{align-items:center;}.s.e > .s.cx{align-self:center;}.s.e.ccy > .s{margin-top:auto;margin-bottom:auto;}.s.e > .s.cy{margin-top:auto !important;margin-bottom:auto !important;}.s.r{display:flex;flex-direction:row;}.s.r > .s{flex-basis:0%;}.s.r > .s.we{flex-basis:auto;}.s.r > .s.lnk{flex-basis:auto;}.s.r > .hf{align-self:stretch !important;}.s.r > .hfp{align-self:stretch !important;}.s.r > .wf{flex-grow:100000;}.s.r > .ctr{flex-grow:0;flex-basis:auto;align-self:stretch;}.s.r > u:first-of-type.acr{flex-grow:1;}.s.r > s:first-of-type.accx{flex-grow:1;}.s.r > s:first-of-type.accx > .cx{margin-left:auto !important;}.s.r > s:last-of-type.accx{flex-grow:1;}.s.r > s:last-of-type.accx > .cx{margin-right:auto !important;}.s.r > s:only-of-type.accx{flex-grow:1;}.s.r > s:only-of-type.accx > .cy{margin-top:auto !important;margin-bottom:auto !important;}.s.r > s:last-of-type.accx ~ u{flex-grow:0;}.s.r > u:first-of-type.acr ~ s.accx{flex-grow:0;}.s.r.ct{align-items:flex-start;}.s.r > .s.at{align-self:flex-start;}.s.r.cb{align-items:flex-end;}.s.r > .s.ab{align-self:flex-end;}.s.r.cr{justify-content:flex-end;}.s.r.cl{justify-content:flex-start;}.s.r.ccx{justify-content:center;}.s.r.ccy{align-items:center;}.s.r > .s.cy{align-self:center;}.s.r.sev{justify-content:space-between;}.s.r.lbl{align-items:baseline;}.s.c{display:flex;flex-direction:column;}.s.c > .s{flex-basis:0px;min-height:min-content;}.s.c > .s.he{flex-basis:auto;}.s.c > .hf{flex-grow:100000;}.s.c > .wf{width:100%;}.s.c > .wfp{width:100%;}.s.c > .wc{align-self:flex-start;}.s.c > u:first-of-type.acb{flex-grow:1;}.s.c > s:first-of-type.accy{flex-grow:1;}.s.c > s:first-of-type.accy > .cy{margin-top:auto !important;margin-bottom:0 !important;}.s.c > s:last-of-type.accy{flex-grow:1;}.s.c > s:last-of-type.accy > .cy{margin-bottom:auto !important;margin-top:0 !important;}.s.c > s:only-of-type.accy{flex-grow:1;}.s.c > s:only-of-type.accy > .cy{margin-top:auto !important;margin-bottom:auto !important;}.s.c > s:last-of-type.accy ~ u{flex-grow:0;}.s.c > u:first-of-type.acb ~ s.accy{flex-grow:0;}.s.c.ct{justify-content:flex-start;}.s.c > .s.at{margin-bottom:auto;}.s.c.cb{justify-content:flex-end;}.s.c > .s.ab{margin-top:auto;}.s.c.cr{align-items:flex-end;}.s.c > .s.ar{align-self:flex-end;}.s.c.cl{align-items:flex-start;}.s.c > .s.al{align-self:flex-start;}.s.c.ccx{align-items:center;}.s.c > .s.cx{align-self:center;}.s.c.ccy{justify-content:center;}.s.c > .ctr{flex-grow:0;flex-basis:auto;width:100%;align-self:stretch !important;}.s.c.sev{justify-content:space-between;}.s.g{display:-ms-grid;}.s.g > .gp > .s{width:100%;}@supports (display:grid) {.s.g{display:grid;
+}}.s.g > .s.at{justify-content:flex-start;}.s.g > .s.ab{justify-content:flex-end;}.s.g > .s.ar{align-items:flex-end;}.s.g > .s.al{align-items:flex-start;}.s.g > .s.cx{align-items:center;}.s.g > .s.cy{justify-content:center;}.s.pg{display:block;}.s.pg > .s:first-child{margin:0 !important;}.s.pg > .s.al:first-child + .s{margin:0 !important;}.s.pg > .s.ar:first-child + .s{margin:0 !important;}.s.pg > .s.ar{float:right;}.s.pg > .s.ar::after{content:&quot;&quot;;display:table;clear:both;}.s.pg > .s.al{float:left;}.s.pg > .s.al::after{content:&quot;&quot;;display:table;clear:both;}.s.iml{white-space:pre-wrap !important;height:100%;width:100%;background-color:transparent;}.s.implw.e{flex-basis:auto;}.s.imlp{white-space:pre-wrap !important;cursor:text;}.s.imlp > .imlf{white-space:pre-wrap !important;color:transparent;}.s.p{display:block;white-space:normal;overflow-wrap:break-word;}.s.p.hbh{z-index:0;}.s.p.hbh > .bh{z-index:-1;}.s.p .t{display:inline;white-space:normal;}.s.p .p{display:inline;}.s.p .p::after{content:none;}.s.p .p::before{content:none;}.s.p .e{display:inline;white-space:normal;}.s.p .e.we{display:inline-block;}.s.p .e.fr{display:flex;}.s.p .e.bh{display:flex;}.s.p .e.a{display:flex;}.s.p .e.b{display:flex;}.s.p .e.or{display:flex;}.s.p .e.ol{display:flex;}.s.p .e > .t{display:inline;white-space:normal;}.s.p > .r{display:inline;}.s.p > .c{display:inline-flex;}.s.p > .g{display:inline-grid;}.s.p > .s.ar{float:right;}.s.p > .s.al{float:left;}.s.hidden{display:none;}.s.w1{font-weight:100;}.s.w2{font-weight:200;}.s.w3{font-weight:300;}.s.w4{font-weight:400;}.s.w5{font-weight:500;}.s.w6{font-weight:600;}.s.w7{font-weight:700;}.s.w8{font-weight:800;}.s.w9{font-weight:900;}.s.i{font-style:italic;}.s.sk{text-decoration:line-through;}.s.u{text-decoration:underline;text-decoration-skip-ink:auto;text-decoration-skip:ink;}.s.u.sk{text-decoration:line-through underline;text-decoration-skip-ink:auto;text-decoration-skip:ink;}.s.tun{font-style:normal;}.s.tj{text-align:justify;}.s.tja{text-align:justify-all;}.s.tc{text-align:center;}.s.tr{text-align:right;}.s.tl{text-align:left;}.s.modal{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;}.border-0{border-width:0px;}.border-1{border-width:1px;}.border-2{border-width:2px;}.border-3{border-width:3px;}.border-4{border-width:4px;}.border-5{border-width:5px;}.border-6{border-width:6px;}.font-size-8{font-size:8px;}.font-size-9{font-size:9px;}.font-size-10{font-size:10px;}.font-size-11{font-size:11px;}.font-size-12{font-size:12px;}.font-size-13{font-size:13px;}.font-size-14{font-size:14px;}.font-size-15{font-size:15px;}.font-size-16{font-size:16px;}.font-size-17{font-size:17px;}.font-size-18{font-size:18px;}.font-size-19{font-size:19px;}.font-size-20{font-size:20px;}.font-size-21{font-size:21px;}.font-size-22{font-size:22px;}.font-size-23{font-size:23px;}.font-size-24{font-size:24px;}.font-size-25{font-size:25px;}.font-size-26{font-size:26px;}.font-size-27{font-size:27px;}.font-size-28{font-size:28px;}.font-size-29{font-size:29px;}.font-size-30{font-size:30px;}.font-size-31{font-size:31px;}.font-size-32{font-size:32px;}.p-0{padding:0px;}.p-1{padding:1px;}.p-2{padding:2px;}.p-3{padding:3px;}.p-4{padding:4px;}.p-5{padding:5px;}.p-6{padding:6px;}.p-7{padding:7px;}.p-8{padding:8px;}.p-9{padding:9px;}.p-10{padding:10px;}.p-11{padding:11px;}.p-12{padding:12px;}.p-13{padding:13px;}.p-14{padding:14px;}.p-15{padding:15px;}.p-16{padding:16px;}.p-17{padding:17px;}.p-18{padding:18px;}.p-19{padding:19px;}.p-20{padding:20px;}.p-21{padding:21px;}.p-22{padding:22px;}.p-23{padding:23px;}.p-24{padding:24px;}.v-smcp{font-variant:small-caps;}.v-smcp-off{font-variant:normal;}.v-zero{font-feature-settings:&quot;zero&quot;;}.v-zero-off{font-feature-settings:&quot;zero&quot; 0;}.v-onum{font-feature-settings:&quot;onum&quot;;}.v-onum-off{font-feature-settings:&quot;onum&quot; 0;}.v-liga{font-feature-settings:&quot;liga&quot;;}.v-liga-off{font-feature-settings:&quot;liga&quot; 0;}.v-dlig{font-feature-settings:&quot;dlig&quot;;}.v-dlig-off{font-feature-settings:&quot;dlig&quot; 0;}.v-ordn{font-feature-settings:&quot;ordn&quot;;}.v-ordn-off{font-feature-settings:&quot;ordn&quot; 0;}.v-tnum{font-feature-settings:&quot;tnum&quot;;}.v-tnum-off{font-feature-settings:&quot;tnum&quot; 0;}.v-afrc{font-feature-settings:&quot;afrc&quot;;}.v-afrc-off{font-feature-settings:&quot;afrc&quot; 0;}.v-frac{font-feature-settings:&quot;frac&quot;;}.v-frac-off{font-feature-settings:&quot;frac&quot; 0;}</style></div><div><style>
+.ff-monospace.cap, .ff-monospace .cap {line-height: 1;} .ff-monospace.cap> .t, .ff-monospace .cap > .t {vertical-align: 0;line-height: 1;}.ff-sans-serif .ff-monospace.cap, .ff-sans-serif .ff-monospace .cap {line-height: 1;} .ff-sans-serif .ff-monospace.cap> .t, .ff-sans-serif .ff-monospace .cap > .t {vertical-align: 0;line-height: 1;}
+.ff-monospace .ff-sans-serif.cap, .ff-monospace .ff-sans-serif .cap {line-height: 1;} .ff-monospace .ff-sans-serif.cap> .t, .ff-monospace .ff-sans-serif .cap > .t {vertical-align: 0;line-height: 1;}.ff-sans-serif.cap, .ff-sans-serif .cap {line-height: 1;} .ff-sans-serif.cap> .t, .ff-sans-serif .cap > .t {vertical-align: 0;line-height: 1;}.spacing-5-5.r > .s + .s{
+  margin-left: 5px;
+}.spacing-5-5.wrp.r > .s{
+  margin: 2.5px 2.5px;
+}.spacing-5-5.c > .s + .s{
+  margin-top: 5px;
+}.spacing-5-5.pg > .s + .s{
+  margin-top: 5px;
+}.spacing-5-5.pg > .al{
+  margin-right: 5px;
+}.spacing-5-5.pg > .ar{
+  margin-left: 5px;
+}.spacing-5-5.p{
+  line-height: calc(1em + 5px);
+}textarea.s.spacing-5-5{
+  line-height: calc(1em + 5px);
+  height: calc(100% + 5px);
+}.spacing-5-5.p > .al{
+  margin-right: 5px;
+}.spacing-5-5.p > .ar{
+  margin-left: 5px;
+}.spacing-5-5.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -2px;
+}.spacing-5-5.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -2px;
+}.width-px-25{
+  width: 25px;
+}.height-px-25px{
+  height : 25px;
+}.spacing-15-15.r > .s + .s{
+  margin-left: 15px;
+}.spacing-15-15.wrp.r > .s{
+  margin: 7.5px 7.5px;
+}.spacing-15-15.c > .s + .s{
+  margin-top: 15px;
+}.spacing-15-15.pg > .s + .s{
+  margin-top: 15px;
+}.spacing-15-15.pg > .al{
+  margin-right: 15px;
+}.spacing-15-15.pg > .ar{
+  margin-left: 15px;
+}.spacing-15-15.p{
+  line-height: calc(1em + 15px);
+}textarea.s.spacing-15-15{
+  line-height: calc(1em + 15px);
+  height: calc(100% + 15px);
+}.spacing-15-15.p > .al{
+  margin-right: 15px;
+}.spacing-15-15.p > .ar{
+  margin-left: 15px;
+}.spacing-15-15.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -7px;
+}.spacing-15-15.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -7px;
+}.spacing-20-20.r > .s + .s{
+  margin-left: 20px;
+}.spacing-20-20.wrp.r > .s{
+  margin: 10px 10px;
+}.spacing-20-20.c > .s + .s{
+  margin-top: 20px;
+}.spacing-20-20.pg > .s + .s{
+  margin-top: 20px;
+}.spacing-20-20.pg > .al{
+  margin-right: 20px;
+}.spacing-20-20.pg > .ar{
+  margin-left: 20px;
+}.spacing-20-20.p{
+  line-height: calc(1em + 20px);
+}textarea.s.spacing-20-20{
+  line-height: calc(1em + 20px);
+  height: calc(100% + 20px);
+}.spacing-20-20.p > .al{
+  margin-right: 20px;
+}.spacing-20-20.p > .ar{
+  margin-left: 20px;
+}.spacing-20-20.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -10px;
+}.spacing-20-20.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -10px;
+}.ff-sans-serif{
+  font-family: sans-serif;
+  font-feature-settings: ;
+  font-variant: normal;
+}.spacing-10-10.r > .s + .s{
+  margin-left: 10px;
+}.spacing-10-10.wrp.r > .s{
+  margin: 5px 5px;
+}.spacing-10-10.c > .s + .s{
+  margin-top: 10px;
+}.spacing-10-10.pg > .s + .s{
+  margin-top: 10px;
+}.spacing-10-10.pg > .al{
+  margin-right: 10px;
+}.spacing-10-10.pg > .ar{
+  margin-left: 10px;
+}.spacing-10-10.p{
+  line-height: calc(1em + 10px);
+}textarea.s.spacing-10-10{
+  line-height: calc(1em + 10px);
+  height: calc(100% + 10px);
+}.spacing-10-10.p > .al{
+  margin-right: 10px;
+}.spacing-10-10.p > .ar{
+  margin-left: 10px;
+}.spacing-10-10.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -5px;
+}.spacing-10-10.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -5px;
+}.fc-255-255-255-255{
+  color: rgba(255,255,255,1);
+}.br-5{
+  border-radius: 5px;
+}.bc-84-24-158-255{
+  border-color: rgba(84,24,158,1);
+}.b-2{
+  border-width: 2px 2px 2px 2px;
+}.spacing-30-30.r > .s + .s{
+  margin-left: 30px;
+}.spacing-30-30.wrp.r > .s{
+  margin: 15px 15px;
+}.spacing-30-30.c > .s + .s{
+  margin-top: 30px;
+}.spacing-30-30.pg > .s + .s{
+  margin-top: 30px;
+}.spacing-30-30.pg > .al{
+  margin-right: 30px;
+}.spacing-30-30.pg > .ar{
+  margin-left: 30px;
+}.spacing-30-30.p{
+  line-height: calc(1em + 30px);
+}textarea.s.spacing-30-30{
+  line-height: calc(1em + 30px);
+  height: calc(100% + 30px);
+}.spacing-30-30.p > .al{
+  margin-right: 30px;
+}.spacing-30-30.p > .ar{
+  margin-left: 30px;
+}.spacing-30-30.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -15px;
+}.spacing-30-30.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -15px;
+}.bg-0-0-0-255{
+  background-color: rgba(0,0,0,1);
+}.max-height-400{
+  max-height: 400px;
+}.max-width-500{
+  max-width: 500px;
+}.p-30{
+  padding: 30px 30px 30px 30px;
+}.bg-0-0-0-51{
+  background-color: rgba(0,0,0,0.2);
+}.ff-monospace{
+  font-family: monospace;
+  font-feature-settings: ;
+  font-variant: normal;
+}.fc-0-0-0-255{
+  color: rgba(0,0,0,1);
+}.focus-within:focus-within{
+  outline: none;
+}.s:focus .focusable, .s.focusable:focus, .ui-slide-bar:focus + .s .focusable-thumb{
+  outline: none;
+}</style></div><div class=&quot;ah cx p-30 s e max-height-400 hf max-width-500 wf&quot;><div class=&quot;bg-0-0-0-255 spacing-30-30 p-30 b-2 bc-84-24-158-255 br-5 fc-255-255-255-255 hf s c wf ct cl&quot;><div class=&quot;hc sev s r wf cl ccy&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy&quot;><div class=&quot;hc s e wc&quot;><svg viewBox=&quot;0 0 397.7 311.7&quot; height=&quot;25&quot;><linearGradient id=&quot;a&quot; x1=&quot;360.8791&quot; x2=&quot;141.213&quot; y1=&quot;351.4553&quot; y2=&quot;-69.2936&quot; gradientTransform=&quot;matrix(1 0 0 -1 0 314)&quot; gradientUnits=&quot;userSpaceOnUse&quot;><stop offset=&quot;0&quot; stop-color=&quot;#00ffa3&quot;></stop><stop offset=&quot;1&quot; stop-color=&quot;#dc1fff&quot;></stop></linearGradient><path fill=&quot;url(#a)&quot; d=&quot;M64.6 237.9c2.4-2.4 5.7-3.8 9.2-3.8h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1l62.7-62.7z&quot;></path><linearGradient id=&quot;b&quot; x1=&quot;264.8291&quot; x2=&quot;45.163&quot; y1=&quot;401.6014&quot; y2=&quot;-19.1475&quot; gradientTransform=&quot;matrix(1 0 0 -1 0 314)&quot; gradientUnits=&quot;userSpaceOnUse&quot;><stop offset=&quot;0&quot; stop-color=&quot;#00ffa3&quot;></stop><stop offset=&quot;1&quot; stop-color=&quot;#dc1fff&quot;></stop></linearGradient><path fill=&quot;url(#b)&quot; d=&quot;M64.6 3.8C67.1 1.4 70.4 0 73.8 0h317.4c5.8 0 8.7 7 4.6 11.1l-62.7 62.7c-2.4 2.4-5.7 3.8-9.2 3.8H6.5c-5.8 0-8.7-7-4.6-11.1L64.6 3.8z&quot;></path><linearGradient id=&quot;c&quot; x1=&quot;312.5484&quot; x2=&quot;92.8822&quot; y1=&quot;376.688&quot; y2=&quot;-44.061&quot; gradientTransform=&quot;matrix(1 0 0 -1 0 314)&quot; gradientUnits=&quot;userSpaceOnUse&quot;><stop offset=&quot;0&quot; stop-color=&quot;#00ffa3&quot;></stop><stop offset=&quot;1&quot; stop-color=&quot;#dc1fff&quot;></stop></linearGradient><path fill=&quot;url(#c)&quot; d=&quot;M333.1 120.1c-2.4-2.4-5.7-3.8-9.2-3.8H6.5c-5.8 0-8.7 7-4.6 11.1l62.7 62.7c2.4 2.4 5.7 3.8 9.2 3.8h317.4c5.8 0 8.7-7 4.6-11.1l-62.7-62.7z&quot;></path></svg></div><div class=&quot;hc w7 font-size-25 ff-sans-serif s e wc&quot;><div class=&quot;s t wf hf&quot;>Solana Connect</div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc s e wc&quot; title=&quot;Close&quot;><div class=&quot;hc s e wc&quot;><svg viewBox=&quot;0 0 24 24&quot; height=&quot;30&quot; width=&quot;30&quot;><g fill=&quot;currentColor&quot;><path d=&quot;M0 0h24v24H0z&quot; fill=&quot;none&quot;></path><path d=&quot;M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z&quot;></path></g></svg></div></div></div></div><div class=&quot;spacing-20-20 hf s c wc ct cl&quot;><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot; style=&quot;&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;217403c7b7ef09388041bc3b5ca0996ba958e1db.png&quot; alt=&quot;Backpack&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Backpack</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;63fd743fd5fa5b78d9c52bd7f4ef1c8e9743b3f8.svg&quot; alt=&quot;Bitget Wallet&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Bitget Wallet</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;59bc5aca5c3f80a8e736f67aea193d18f45e95ee.svg&quot; alt=&quot;Bybit Wallet&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Bybit Wallet</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;876bfed7100123591208745ce7cc54338aec48c2.svg&quot; alt=&quot;Ledger&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Ledger</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;bdb705e29608d30c5e22b2e78eb18d9c30f4f0a0.svg&quot; alt=&quot;MetaMask&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>MetaMask</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;5d028511fef585dce8bd1c674bbe8ca922bfce0d.svg&quot; alt=&quot;Nightly&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Nightly</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;96ae1b0d5af7b909a3a4c58ed124bb309033fa2f.png&quot; alt=&quot;OKX Wallet&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>OKX Wallet</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;698e2ef14957d3ee9bb847b31a4d8db58cc7ecbe.svg&quot; alt=&quot;Phantom&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Phantom</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;1b24c9da110c92066eb57685034f1dfd41c6927d.svg&quot; alt=&quot;Solflare&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>Solflare</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;8c2dfebfc52d8ea90774aab76252855a45822804.png&quot; alt=&quot;SquadsX&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>SquadsX</div></div></div></div></div><div class=&quot;hc cptr s e wc ccx ccy sbt notxt focusable sc_hover_fade&quot; role=&quot;button&quot; tabindex=&quot;0&quot;><div class=&quot;hc spacing-10-10 s r wc cl ccy sc_hover_fade&quot;><div class=&quot;hc spacing-15-15 s r wf cl ccy&quot;><div class=&quot;he height-px-25px we width-px-25 av at s e ic&quot;><img class=&quot;he height-px-25px we width-px-25 s e&quot; src=&quot;78f07bdfdcc3b58718d006ff16756e2fa5c40426.svg&quot; alt=&quot;WalletConnect&quot;></div><div class=&quot;spacing-5-5 s p wf&quot;><div class=&quot;s t wc hc&quot;>WalletConnect</div></div></div></div></div></div><u class=&quot;s e ctr acb&quot;><div class=&quot;hc ah ar av ab s e wc&quot;><a class=&quot;hc s e wc ccx ccy lnk sc_hover_fade&quot; href=&quot;https://github.com/ronanyeah/solana-connect/&quot; rel=&quot;noopener noreferrer&quot; target=&quot;_blank&quot;><div class=&quot;hc spacing-5-5 s r wc cl ccy&quot;><div class=&quot;hc font-size-15 s e wc u&quot;><div class=&quot;s t wf hf&quot;>About Solana Connect</div></div><div class=&quot;hc s e wc&quot;><svg viewBox=&quot;0 0 24 24&quot; height=&quot;17&quot; width=&quot;17&quot;><g fill=&quot;currentColor&quot;><path d=&quot;M0 0h24v24H0z&quot; fill=&quot;none&quot;></path><path d=&quot;M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z&quot;></path></g></svg></div></div></a></div></u></div></div></div></div>">
+  </solana-connect-modal>
+  <w3m-modal data-scrapbook-adoptedstylesheets="0" data-scrapbook-shadowdom="<!---->"></w3m-modal>
+  <script
+    data-scrapbook-elem="basic-loader">(function () { var k1 = "data-scrapbook-shadowdom", k2 = "data-scrapbook-canvas", k3 = "data-scrapbook-input-indeterminate", k4 = "data-scrapbook-input-checked", k5 = "data-scrapbook-option-selected", k6 = "data-scrapbook-input-value", k7 = "data-scrapbook-textarea-value", k8 = "data-scrapbook-adoptedstylesheets", k9 = /^data-scrapbook-adoptedstylesheet-(\d+)$/, k10 = "data-scrapbook-shadowdom-mode", k11 = "data-scrapbook-shadowdom-clonable", k12 = "data-scrapbook-shadowdom-delegates-focus", k13 = "data-scrapbook-shadowdom-serializable", k14 = "data-scrapbook-shadowdom-slot-assignment", k15 = "data-scrapbook-slot-assigned", k16 = "data-scrapbook-slot-index", k17 = /^scrapbook-slot-index=(\d+)$/; k18 = '/scrapbook-slot-index'; d = document, r = d.documentElement, $s = !!r.attachShadow, $as = !!d.adoptedStyleSheets, $c = !!window.HTMLCanvasElement, $sa = !!d.createElement('slot').assign, sle = [], sls = [], slt = function (r) { if ($sa) { var E = r.childNodes, i, e, s, m; for (i = 0; i < E.length; i++) { e = E[i]; if (e.nodeType === 8) { s = e.nodeValue; if (m = s.match(k17)) { s = e.nextSibling; if (s.nodeType === 3) { sls[m[1]] = s; } r.removeChild(e); i--; } else if (s === k18) { r.removeChild(e); i--; } } } } }, sl = function () { var i = sle.length, j, d, e; while (i--) { d = sle[i]; e = d.elem; d = d.value.split(','); j = d.length; while (j--) { d[j] = sls[parseInt(d[j], 10)]; } try { e.assign.apply(e, d); } catch (ex) { console.error(ex); } } }, asl = (function (r) { var l = [], E, i, e, m, c, j; if ($as) { E = r.attributes; i = E.length; while (i--) { e = E[i]; if (!(m = e.nodeName.match(k9))) { continue; } c = l[m[1]] = new CSSStyleSheet(); r.removeAttribute(m[0]); m = e.nodeValue.split('\n\n'); j = m.length; while (j--) { try { m[j] && c.insertRule(m[j]); } catch (ex) { console.error(ex); } } } } return l; })(r), as = function (d, e) { var l, i, I; if ($as && (l = e.getAttribute(k8)) !== null) { l = l.split(','); for (i = 0, I = l.length; i < I; i++) { d.adoptedStyleSheets.push(asl[l[i]]); } e.removeAttribute(k8); } }, fn = function (r) { var E = r.querySelectorAll ? r.querySelectorAll("*") : r.getElementsByTagName("*"), i = E.length, e, d, s, m; while (i--) { e = E[i]; s = e.shadowRoot; if ($s && (d = e.getAttribute(k1))) { if (!s) { try { s = e.attachShadow({ mode: (m = e.getAttribute(k10)) !== null ? m : 'open', clonable: e.hasAttribute(k11), delegatesFocus: e.hasAttribute(k12), serializable: e.hasAttribute(k13), slotAssignment: (m = e.getAttribute(k14)) !== null ? m : void (0), }); s.innerHTML = d; } catch (ex) { console.error(ex); } } e.removeAttribute(k1); e.removeAttribute(k10); e.removeAttribute(k11); e.removeAttribute(k12); e.removeAttribute(k13); e.removeAttribute(k14); } if ($c && (d = e.getAttribute(k2)) !== null) { (function () { var c = e, g = new Image(); g.onload = function () { c.getContext('2d').drawImage(g, 0, 0); }; g.src = d; })(); e.removeAttribute(k2); } if ((d = e.getAttribute(k3)) !== null) { e.indeterminate = true; e.removeAttribute(k3); } if ((d = e.getAttribute(k4)) !== null) { e.checked = d === 'true'; e.removeAttribute(k4); } if ((d = e.getAttribute(k5)) !== null) { e.selected = d === 'true'; e.removeAttribute(k5); } if ((d = e.getAttribute(k6)) !== null) { e.value = d; e.removeAttribute(k6); } if ((d = e.getAttribute(k7)) !== null) { e.value = d; e.removeAttribute(k7); } if ($sa && (d = e.getAttribute(k15)) !== null) { sle.push({ elem: e, value: d }); e.removeAttribute(k15); } if ($sa && (d = e.getAttribute(k16)) !== null) { sls[d] = e; e.removeAttribute(k16); } if (s) { slt(e); as(s, e); fn(s); } } }; as(d, r); fn(d); sl(); })()</script>
+</body>
+
+</html>
